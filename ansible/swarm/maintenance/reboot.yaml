@@ -1,0 +1,5 @@
+name: Reboot nodes
+hosts: swarm
+become: true
+reboot:
+  reboot_timeout: 300

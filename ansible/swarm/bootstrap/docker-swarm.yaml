@@ -1,0 +1,22 @@
+- name: Configure Docker Swarm (Master on swarm01)
+  hosts: swarm01
+  become: true
+  
+  tasks:
+    - name: Initialize Docker Swarm
+      docker_swarm:
+        state: present
+        advertise_addr: "{{ ansible_host }}"
+      register: swarm_init
+
+    - name: Set fact for join token
+      set_fact:
+        manager_join_token: "{{ swarm_init.swarm_facts.JoinTokens.Manager }}"
+
+- name: Join Docker Swarm
+  hosts: swarm02:swarm03
+  become: true
+  docker_swarm:
+        state: join
+        join_token: "{{ hostvars['swarm01'].manager_join_token }}"
+        remote_addrs: "{{ hostvars['swarm01'].ansible_host }}"

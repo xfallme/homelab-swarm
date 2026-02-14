@@ -1,0 +1,6 @@
+- name: Install latest guest agent
+  hosts: swarm
+  become: true
+  apt:
+    name: qemu-guest-agent
+    state: latest

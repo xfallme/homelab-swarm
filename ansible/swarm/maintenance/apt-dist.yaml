@@ -1,0 +1,7 @@
+- name: APT dist-upgrade
+  hosts: swarm
+  become: true
+  apt:
+    update_cache: yes
+    upgrade: 'dist'
+  

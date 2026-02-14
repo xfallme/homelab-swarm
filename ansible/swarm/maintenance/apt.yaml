@@ -1,0 +1,7 @@
+- name: APT update/upgrade
+  hosts: swarm
+  become: true
+  apt:
+    update_cache: yes
+    upgrade: 'yes'
+  

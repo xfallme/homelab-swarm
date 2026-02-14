@@ -1,0 +1,21 @@
+all:
+  children:
+    pve:
+      hosts:
+        zeus:
+          ansible_host: 192.168.20.10
+    swarm:
+      hosts:
+        swarm01:
+          ansible_host: 192.168.20.11
+          remote_user: serveradmin
+        swarm02:
+          ansible_host: 192.168.20.12
+          remote_user: serveradmin
+        swarm03:
+          ansible_host: 192.168.20.13
+          remote_user: serveradmin
+    pis:
+      hosts:
+        micro01:
+          ansible_host: 192.168.20.21

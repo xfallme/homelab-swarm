@@ -1,0 +1,5 @@
+- name: set timezone
+  hosts: swarm
+  become: true
+  timezone:
+    name: "Europe/Vienna"
