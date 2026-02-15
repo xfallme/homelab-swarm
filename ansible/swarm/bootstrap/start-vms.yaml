@@ -6,9 +6,9 @@
     proxmox_node: "zeus"
     proxmox_api_host: "192.168.20.10"
 
-    api_user: "root@pam"
-    api_token_id: "{{ lookup('community.general.onepassword', 'Proxmox API Key', field='username', vault='Hosting') }}"
-    api_token_secret: "{{ lookup('community.general.onepassword', 'Proxmox API Key', field='password', vault='Hosting') }}"
+    proxmox_api_user: "root@pam"
+    proxmox_api_token_id: "{{ lookup('community.general.onepassword', 'Proxmox API Key', field='username', vault='Hosting') }}"
+    proxmox_api_token_secret: "{{ lookup('community.general.onepassword', 'Proxmox API Key', field='password', vault='Hosting') }}"
 
     vmid_base: 111
 
@@ -25,9 +25,9 @@
     - name: Start VMs
       community.proxmox.proxmox_kvm:
         api_host: "{{ proxmox_api_host }}"
-        api_user: "{{ api_user }}"
-        api_token_id: "{{ api_token_id }}"
-        api_token_secret: "{{ api_token_secret }}"
+        api_user: "{{ proxmox_api_user }}"
+        api_token_id: "{{ proxmox_api_token_id }}"
+        api_token_secret: "{{ proxmox_api_token_secret }}"
         node: "{{ proxmox_node }}"
         vmid: "{{ item.1 }}"
         state: started

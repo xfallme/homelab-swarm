@@ -5,10 +5,7 @@
   vars:
     proxmox_node: "zeus"
     proxmox_api_host: "192.168.20.10"
-
-    api_user: "root@pam"
-    api_token_id: "{{ lookup('community.general.onepassword', 'Proxmox API Key', field='username', vault='Hosting') }}"
-    api_token_secret: "{{ lookup('community.general.onepassword', 'Proxmox API Key', field='password', vault='Hosting') }}"
+    proxmox_api_user: "root@pam"
 
     template_vmid: 9000
     storage: "local-lvm"
@@ -25,12 +22,17 @@
             | list
           }}
 
+    - name: Get Proxmox API credentials from 1Password
+      set_fact:
+        proxmox_api_token_id: "{{ lookup('community.general.onepassword', 'Proxmox API Key', field='username', vault='Hosting') }}"
+        proxmox_api_token_secret: "{{ lookup('community.general.onepassword', 'Proxmox API Key', field='password', vault='Hosting') }}"
+
     - name: Clone VMs from template (full clone)
       community.proxmox.proxmox_kvm:
         api_host: "{{ proxmox_api_host }}"
-        api_user: "{{ api_user }}"
-        api_token_id: "{{ api_token_id }}"
-        api_token_secret: "{{ api_token_secret }}"
+        api_user: "{{ proxmox_api_user }}"
+        api_token_id: "{{ proxmox_api_token_id }}"
+        api_token_secret: "{{ proxmox_api_token_secret }}"
         node: "{{ proxmox_node }}"
         clone: arbitrary_name
         vmid: "{{ template_vmid }}"
@@ -45,9 +47,9 @@
     - name: Cloud init setup & hardware update
       community.proxmox.proxmox_kvm:
         api_host: "{{ proxmox_api_host }}"
-        api_user: "{{ api_user }}"
-        api_token_id: "{{ api_token_id }}"
-        api_token_secret: "{{ api_token_secret }}"
+        api_user: "{{ proxmox_api_user }}"
+        api_token_id: "{{ proxmox_api_token_id }}"
+        api_token_secret: "{{ proxmox_api_token_secret }}"
         node: "{{ proxmox_node }}"
         vmid: "{{ item.1 }}"
         update: true
