@@ -3,6 +3,13 @@
   become: true
   
   tasks:
+    - name: Dependencies (pip & docker SDK)
+      apt:
+        name: 
+          - python3-pip
+          - python3-docker
+        state: present
+
     - name: Initialize Docker Swarm
       docker_swarm:
         state: present
@@ -18,6 +25,13 @@
   become: true
 
   tasks:
+    - name: Dependencies (pip & docker SDK)
+      apt:
+        name: 
+          - python3-pip
+          - python3-docker
+        state: present
+
     - name: Join Docker Swarm
       docker_swarm:
         state: join

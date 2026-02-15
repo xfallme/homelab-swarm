@@ -7,3 +7,9 @@
     apt:
       name: qemu-guest-agent
       state: latest
+  
+  - name: Enable and start qemu-guest-agent
+    service:
+      name: qemu-guest-agent
+      enabled: true
+      state: started

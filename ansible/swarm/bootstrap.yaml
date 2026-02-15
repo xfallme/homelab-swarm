@@ -1,7 +1,7 @@
 - import_playbook: maintenance/apt.yaml
 - import_playbook: maintenance/apt-dist.yaml
-- import_playbook: timezone.yaml
-- import_playbook: guest-agent.yaml
-- import_playbook: docker.yaml
+- import_playbook: bootstrap/timezone.yaml
+- import_playbook: bootstrap/guest-agent.yaml
+- import_playbook: bootstrap/docker.yaml
 - import_playbook: maintenance/reboot.yaml
-- import_playbook: docker-swarm.yaml
+- import_playbook: bootstrap/docker-swarm.yaml

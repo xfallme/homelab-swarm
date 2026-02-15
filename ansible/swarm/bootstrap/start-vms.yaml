@@ -1,0 +1,35 @@
+- name: Start swarm nodes
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    proxmox_node: "zeus"
+    proxmox_api_host: "192.168.20.10"
+
+    api_user: "root@pam"
+    api_token_id: "{{ lookup('community.general.onepassword', 'Proxmox API Key', field='username', vault='Hosting') }}"
+    api_token_secret: "{{ lookup('community.general.onepassword', 'Proxmox API Key', field='password', vault='Hosting') }}"
+
+    vmid_base: 111
+
+  tasks:
+    - name: Build swarm VM list from inventory
+      set_fact:
+        swarm_vms: >-
+          {{
+            groups['swarm']
+            | zip(range(vmid_base, vmid_base + groups['swarm']|length))
+            | list
+          }}
+    
+    - name: Start VMs
+      community.proxmox.proxmox_kvm:
+        api_host: "{{ proxmox_api_host }}"
+        api_user: "{{ api_user }}"
+        api_token_id: "{{ api_token_id }}"
+        api_token_secret: "{{ api_token_secret }}"
+        node: "{{ proxmox_node }}"
+        vmid: "{{ item.1 }}"
+        state: started
+      loop: "{{ swarm_vms }}"
+      delegate_to: localhost

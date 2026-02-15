@@ -1,0 +1,64 @@
+- name: Clone swarm nodes dynamically from template
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    proxmox_node: "zeus"
+    proxmox_api_host: "192.168.20.10"
+
+    api_user: "root@pam"
+    api_token_id: "{{ lookup('community.general.onepassword', 'Proxmox API Key', field='username', vault='Hosting') }}"
+    api_token_secret: "{{ lookup('community.general.onepassword', 'Proxmox API Key', field='password', vault='Hosting') }}"
+
+    template_vmid: 9000
+    storage: "local-lvm"
+    vmid_base: 111
+    gateway: "192.168.20.1"
+
+  tasks:
+    - name: Build swarm VM list from inventory
+      set_fact:
+        swarm_vms: >-
+          {{
+            groups['swarm']
+            | zip(range(vmid_base, vmid_base + groups['swarm']|length))
+            | list
+          }}
+
+    - name: Clone VMs from template (full clone)
+      community.proxmox.proxmox_kvm:
+        api_host: "{{ proxmox_api_host }}"
+        api_user: "{{ api_user }}"
+        api_token_id: "{{ api_token_id }}"
+        api_token_secret: "{{ api_token_secret }}"
+        node: "{{ proxmox_node }}"
+        clone: arbitrary_name
+        vmid: "{{ template_vmid }}"
+        newid: "{{ item.1 }}"
+        name: "{{ item.0 }}"
+        full: true
+        storage: "{{ storage }}"
+        timeout: 300
+      loop: "{{ swarm_vms }}"
+      delegate_to: localhost
+
+    - name: Cloud init setup & hardware update
+      community.proxmox.proxmox_kvm:
+        api_host: "{{ proxmox_api_host }}"
+        api_user: "{{ api_user }}"
+        api_token_id: "{{ api_token_id }}"
+        api_token_secret: "{{ api_token_secret }}"
+        node: "{{ proxmox_node }}"
+        vmid: "{{ item.1 }}"
+        update: true
+        update_unsafe: true
+        ciuser: "{{ hostvars[item.0].ansible_user }}"
+        ide:
+          ide2: "{{ storage }}:cloudinit"
+        ipconfig:
+          ipconfig0: "ip={{ hostvars[item.0].ansible_host }}/24,gw={{ gateway }},ip6=dhcp"
+        cores: 4
+        memory: 8192
+        timeout: 300
+      loop: "{{ swarm_vms }}"
+      delegate_to: localhost
