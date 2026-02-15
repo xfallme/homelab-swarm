@@ -1,5 +1,8 @@
-name: Reboot nodes
-hosts: swarm
-become: true
-reboot:
-  reboot_timeout: 300
+- name: Reboot nodes
+  hosts: swarm
+  become: true
+
+  tasks:
+  - name: Reboot 
+    reboot:
+      reboot_timeout: 300

@@ -1,5 +1,9 @@
 - name: set timezone
   hosts: swarm
   become: true
-  timezone:
-    name: "Europe/Vienna"
+  gather_facts: false
+  
+  tasks:
+  - name: Set timezone to Vienna
+    timezone:
+      name: "Europe/Vienna"

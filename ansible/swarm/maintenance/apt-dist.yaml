@@ -1,7 +1,10 @@
 - name: APT dist-upgrade
   hosts: swarm
   become: true
-  apt:
-    update_cache: yes
-    upgrade: 'dist'
+  
+  tasks:
+  - name: Update APT cache and dist-upgrade packages
+    apt:
+      update_cache: yes
+      upgrade: 'dist'
   

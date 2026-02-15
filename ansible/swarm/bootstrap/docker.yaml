@@ -1,21 +1,22 @@
-- name: Install Docker
+- name: Install and configure Docker
   hosts: swarm
+  become: true
+  
   roles:
     - geerlingguy.docker
 
-- name: Add user to docker group
-  hosts: swarm
-  user:
-    name: "serveradmin"
-    groups: "docker"
+  tasks:
+  - name: Add user to docker group
+    user:
+      name: "serveradmin"
+      groups: "docker"
+      append: true
 
-- name: Enable and start docker
-  hosts: swarm
-  service:
-    name: docker
-    enabled: true
-    state: started
+  - name: Enable and start docker
+    service:
+      name: docker
+      enabled: true
+      state: started
 
-- name: Test docker
-  hosts: swarm
-  command: docker version
+  - name: Test docker
+    command: docker version

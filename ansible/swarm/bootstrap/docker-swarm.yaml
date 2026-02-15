@@ -16,7 +16,10 @@
 - name: Join Docker Swarm
   hosts: swarm02:swarm03
   become: true
-  docker_swarm:
+
+  tasks:
+    - name: Join Docker Swarm
+      docker_swarm:
         state: join
         join_token: "{{ hostvars['swarm01'].manager_join_token }}"
         remote_addrs: "{{ hostvars['swarm01'].ansible_host }}"
