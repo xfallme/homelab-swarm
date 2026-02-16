@@ -15,6 +15,11 @@ all:
         swarm03:
           ansible_host: 192.168.20.13
           ansible_user: serveradmin
+    nfs:
+      hosts:
+        nfs-server:
+          ansible_host: 192.168.20.14
+          ansible_user: root
     pis:
       hosts:
         micro01:
