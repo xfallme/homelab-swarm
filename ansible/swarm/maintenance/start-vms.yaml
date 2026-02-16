@@ -33,3 +33,11 @@
         state: started
       loop: "{{ swarm_vms }}"
       delegate_to: localhost
+
+    - name: Wait for VMs to boot
+      wait_for:
+        host: "{{ hostvars[item.0].ansible_host }}"
+        port: 22
+        state: present
+        timeout: 300
+      loop: "{{ swarm_vms }}"

@@ -1,0 +1,36 @@
+- name: Setup NFS connection
+  hosts: swarm
+  become: true
+
+  vars:
+    nfs_server: "192.168.20.14"
+
+  tasks:
+    - name: Install NFS client
+      apt:
+        name: nfs-common
+        state: present
+
+    - name: Create mount point
+      file:
+        path: /mnt/swarm-data
+        state: directory
+
+    - name: Create mount point
+      ansible.posix.mount:
+        name: /mnt/swarm-data
+        src: "{{ nfs_server }}:/srv/nfs/swarm-data"
+        fstype: nfs
+        state: mounted
+
+- name: Set access permissions for swarm-data
+  hosts: swarm01
+  become: true
+
+  tasks:
+    - name: Set permissions for swarm-data
+      file:
+        path: /mnt/swarm-data
+        owner: serveradmin
+        group: docker
+        mode: '0755'
