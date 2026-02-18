@@ -35,7 +35,7 @@ Configure export config with `nano /etc/exports`:
     192.168.20.12(rw,sync,no_subtree_check,no_root_squash) \
     192.168.20.13(rw,sync,no_subtree_check,no_root_squash)
 
-Notic that we only allow the 3 swarm nodes access.
+Notice that we only allow the 3 swarm nodes access.
 
 Restart:
 
