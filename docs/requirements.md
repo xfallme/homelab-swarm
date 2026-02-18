@@ -2,6 +2,10 @@
 
 ## Ansible
 
+The requirements for all Ansible playbooks are listed in [/meta/requirements.yaml](../ansible/meta/requirements.yaml). Install them using `ansible-galaxy`:
+
+    ansible-galaxy install -r ansible/meta/requirements.yaml
+
 ### Secrets Automation with 1Password
 
 ## Proxmox
@@ -31,7 +35,7 @@ Configure export config with `nano /etc/exports`:
     192.168.20.12(rw,sync,no_subtree_check,no_root_squash) \
     192.168.20.13(rw,sync,no_subtree_check,no_root_squash)
 
-Notic that we only allow the 3 swarm nodes access!
+Notic that we only allow the 3 swarm nodes access.
 
 Restart:
 
