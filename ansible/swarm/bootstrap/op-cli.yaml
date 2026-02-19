@@ -1,5 +1,0 @@
-- name: Install 1Password CLI
-  hosts: swarm
-  gather_facts: true
-  roles:
-    - compscidr.onepassword.onepassword_cli

@@ -17,7 +17,7 @@ Since I use Ansible [to clone my VMs](../ansible/swarm/bootstrap/create-vms.yaml
 Since I also have state in my containers, I need to store the data in a way that is accesible on every node. This ensures that containers/services can be scheduled on every node.
 For this I use a mounted NFS folder which is hosted in a simple LXC container on Proxmox VE.
 
-The container is a simple Debian 13 (see [Proxmox Docs](https://pve.proxmox.com/wiki/Linux_Container) for container template install guide) LXC with the following settings:
+The container is a simple Debian 13 LXC (see [Proxmox Docs](https://pve.proxmox.com/wiki/Linux_Container) for container template install guide) with the following settings:
 
 - priviliged container
 - nesting enabled
