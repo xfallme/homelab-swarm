@@ -4,6 +4,6 @@
     "config:recommended"
   ],
   "docker-compose": {
-    "managerFilePatterns": ["\\.compose.yaml$"]
+    "managerFilePatterns": ["/\\.compose\\.yaml$/"]
   }
 }
