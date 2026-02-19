@@ -13,8 +13,8 @@ services:
       mode: global
 
   caddy:
-    build: ./caddy
-    image: xfallme/caddy:latest
+    # build: ./caddy
+    image: ghcr.io/xfallme/homelab-swarm-caddy:v2.10.2
     ports:
       - 80:80
       - 443:443
