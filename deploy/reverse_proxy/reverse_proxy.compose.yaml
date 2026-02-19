@@ -10,7 +10,13 @@ services:
       - "socket-proxy.run:/run/proxy"
     deploy:
       replicas: 3
-      maximum_replicas_per_node: 1
+      max_replicas_per_node: 1
+
+networks:
+  proxy:
+    name: proxy
+    driver: overlay
+    internal: true
 
 volumes:
   socket-proxy.run:
