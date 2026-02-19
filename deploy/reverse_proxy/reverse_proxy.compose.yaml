@@ -8,15 +8,34 @@ services:
       SOCKET_PROXY_HTTP_LISTEN_IP: 127.0.0.1 # disable HTTP listening
     volumes:
       - /var/run/docker.sock:/run/docker.sock:ro 
-      - "socket-proxy.run:/run/proxy"
+      - socket-proxy.run:/run/proxy
     deploy:
       mode: global
+
+  caddy:
+    build: ./caddy
+    images: xfallme/caddy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - socket-proxy.run:/run/proxy:ro
+      - /mnt/swarm-data/caddy/data:/data
+      - /mnt/swarm-data/caddy/config:/config
+    networks:
+      - proxy_network
+    environment:
+      TZ: Europe/Vienna
+      DOCKER_HOST: "unix:///run/proxy/docker.sock"
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
 
 networks:
   proxy_network:
     name: proxy_network
     driver: overlay
-    internal: true
 
 volumes:
   socket-proxy.run:
