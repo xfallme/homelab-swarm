@@ -3,3 +3,8 @@ destroy: true
 working_dir: /deploy/test
 compose_files: 
   - test.compose.yaml
+---
+name: reverse_proxy
+working_dir: /deploy/reverse_proxy
+compose_files:
+  - reverse_proxy.compose.yaml
