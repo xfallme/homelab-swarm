@@ -4,6 +4,6 @@
     "config:recommended"
   ],
   "docker-compose": {
-    "fileMatch": ["*.compose.yaml"]
+    "managerFilePatterns": ["\\.compose.yaml$"]
   }
 }
