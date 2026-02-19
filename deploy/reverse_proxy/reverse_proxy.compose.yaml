@@ -35,6 +35,11 @@ services:
       replicas: 1
       placement:
         constraints: [node.role == manager]
+      labels:
+        caddy_0.email: $EMAIL
+        caddy_1.crowdsec.api_url: http://crowdsec:8080
+        caddy_1.crowdsec.api_key: $CROWDSEC_API_KEY
+        caddy_1.crowdsec.appsec_url: http://crowdsec:7422
 
   crowdsec:
     image: crowdsecurity/crowdsec:v1.7.6

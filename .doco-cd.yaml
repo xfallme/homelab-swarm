@@ -10,3 +10,6 @@ build_opts:
   force_image_pull: true
 compose_files:
   - reverse_proxy.compose.yaml
+external_secrets:
+  EMAIL: "op://GitOps/Data/email"
+  CROWDSEC_API_KEY: "op://GitOps/CADDY_CROWDSEC_API_KEY/credential"
