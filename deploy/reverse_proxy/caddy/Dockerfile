@@ -1,4 +1,5 @@
 ARG CADDY_VERSION=2.10.2
+
 FROM caddy:${CADDY_VERSION}-builder AS builder
 
 RUN xcaddy build \
