@@ -2,6 +2,7 @@ services:
   socket-proxy:
     image: 11notes/socket-proxy:2.1.7
     read_only: true
+    user: "0:988" 
     environment:
       TZ: Europe/Vienna
       SOCKET_PROXY_HTTP_LISTEN_IP: 127.0.0.1 # disable HTTP listening
