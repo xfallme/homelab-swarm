@@ -14,7 +14,7 @@ services:
 
   caddy:
     build: ./caddy
-    images: xfallme/caddy
+    image: xfallme/caddy
     ports:
       - "80:80"
       - "443:443"
