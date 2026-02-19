@@ -54,10 +54,8 @@ services:
       - /mnt/swarm-data/crowdsec/data:/var/lib/crowdsec/data/
     security_opt:
       - no-new-privileges=true
-    healthcheck:
-      disable: true
     deploy:
-      replicas: 1
+      replicas: 0
 
 networks:
   proxy_network:
