@@ -6,7 +6,5 @@ compose_files:
 ---
 name: reverse_proxy
 working_dir: /deploy/reverse_proxy
-build_opts:
-  no_cache: false
 compose_files:
   - reverse_proxy.compose.yaml
