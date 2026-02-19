@@ -34,12 +34,28 @@ jobs:
       - name: Read Caddy version
         id: caddy
         run: echo "version=$(grep ARG deploy/reverse_proxy/caddy/Dockerfile | cut -d= -f2)" >> $GITHUB_OUTPUT
+      
+      - name: Extract Metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.registry }}/${{ env.image_name }}
+          tags: |
+            type=raw,value=${{ steps.caddy.outputs.version }}
+            type=raw,value=latest
 
       - name: Build and Push Docker Image
+        id: push
         uses: docker/build-push-action@v6
         with:
           context: deploy/reverse_proxy/caddy/
           push: true
-          tags: |
-            type=raw,value=${{ steps.caddy.outputs.version }}
-            type=raw,value=latest
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+      
+      - name: Generate artifact attestation
+        uses: actions/attest-build-provenance@v3
+        with:
+          subject-name: ${{ env.registry }}/${{ env.image_name }}
+          subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: true
