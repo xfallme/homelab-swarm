@@ -18,23 +18,47 @@ services:
     ports:
       - 80:80
       - 443:443
+    networks:
+      - proxy_network
+      - internal
+    environment:
+      TZ: Europe/Vienna
+      DOCKER_HOST: unix:///run/proxy/docker.sock
     volumes:
       - socket-proxy.run:/run/proxy:ro
       - /mnt/swarm-data/caddy/data:/data
       - /mnt/swarm-data/caddy/config:/config
-    networks:
-      - proxy_network
-    environment:
-      TZ: Europe/Vienna
-      DOCKER_HOST: "unix:///run/proxy/docker.sock"
+      - /mnt/swarm-data/caddy/logs:/var/log/caddy
+    security_opt:
+      - no-new-privileges=true
     deploy:
       replicas: 1
       placement:
         constraints: [node.role == manager]
 
+  crowdsec:
+    image: crowdsecurity/crowdsec:1.7.6
+    ports:
+      - 8080
+    networks:
+      - internal
+    environment:
+      TZ: Europe/Vienna
+      COLLECTIONS: crowdsecurity/caddy crowdsecurity/http-cve crowdsecurity/whitelist-good-actors
+    volumes:
+      - ./crowdsec_acquis.yaml:/etc/crowdsec/acquis.yaml
+      - /mnt/swarm-data/caddy/logs:/var/log/caddy:ro
+      - /mnt/swarm-data/crowdsec/data:/var/lib/crowdsec/data/
+    security_opt:
+      - no-new-privileges=true
+    deploy:
+      replicas: 1
+
 networks:
   proxy_network:
     name: proxy_network
+    driver: overlay
+  internal:
     driver: overlay
 
 volumes:
