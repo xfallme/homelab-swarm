@@ -37,7 +37,7 @@ services:
         constraints: [node.role == manager]
 
   crowdsec:
-    image: crowdsecurity/crowdsec:1.7.6
+    image: crowdsecurity/crowdsec:v1.7.6
     ports:
       - 8080
     networks:
