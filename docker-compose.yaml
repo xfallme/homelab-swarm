@@ -7,7 +7,7 @@ services:
   app:
     image: ghcr.io/kimdre/doco-cd:0.64
     ports:
-      - "9120:9120" # Prometheus metrics
+      - 9120:9120 # Prometheus metrics
     networks:
       - doco-cd
     environment:
@@ -24,10 +24,14 @@ services:
       - /mnt/swarm-data/doco-cd/data:/data
     healthcheck:
       test: [ "CMD", "/doco-cd", "healthcheck" ]
-      start_period: 15s
+      start_period: 120s # higher because of 1password
       interval: 30s
       timeout: 5s
       retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 512M
 
 networks:
   doco-cd:
