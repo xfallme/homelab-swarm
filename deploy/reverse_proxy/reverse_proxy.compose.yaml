@@ -46,7 +46,7 @@ services:
       TZ: Europe/Vienna
       COLLECTIONS: crowdsecurity/caddy crowdsecurity/http-cve crowdsecurity/whitelist-good-actors
     volumes:
-      - ./crowdsec_acquis.yaml:/etc/crowdsec/acquis.yaml
+      - ./crowdsec/acquis.yaml:/etc/crowdsec/acquis.yaml
       - /mnt/swarm-data/caddy/logs:/var/log/caddy:ro
       - /mnt/swarm-data/crowdsec/data:/var/lib/crowdsec/data/
     security_opt:
