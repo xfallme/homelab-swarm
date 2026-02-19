@@ -3,4 +3,5 @@ services:
     image: traefik/whoami
     ports:
       - "8000:80"
-    replicas: 3
+    deploy:
+      replicas: 3
