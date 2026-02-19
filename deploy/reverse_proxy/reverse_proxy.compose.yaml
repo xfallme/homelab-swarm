@@ -9,7 +9,7 @@ services:
       - /var/run/docker.sock:/run/docker.sock:ro 
       - "socket-proxy.run:/run/proxy"
     deploy:
-      global: true
+      mode: global
 
 networks:
   proxy_network:
