@@ -47,7 +47,7 @@ services:
       - internal
     environment:
       TZ: Europe/Vienna
-      COLLECTIONS: crowdsecurity/caddy crowdsecurity/appseccrowdsecurity/caddy crowdsecurity/http-cve crowdsecurity/whitelist-good-actors
+      COLLECTIONS: crowdsecurity/caddy crowdsecurity/appsec crowdsecurity/http-cve crowdsecurity/whitelist-good-actors
     volumes:
       - ./crowdsec/acquis.yaml:/etc/crowdsec/acquis.yaml
       - /mnt/swarm-data/caddy/logs:/var/log/caddy:ro
