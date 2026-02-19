@@ -38,8 +38,6 @@ services:
 
   crowdsec:
     image: crowdsecurity/crowdsec:v1.7.6
-    ports:
-      - 8080
     networks:
       - internal
     environment:
