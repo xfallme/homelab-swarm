@@ -1,4 +1,4 @@
-# Requirements
+# Requirements for bootstraping the cluster
 
 ## Ansible
 
@@ -43,3 +43,15 @@ Restart:
     sudo systemctl restart nfs-kernel-server
 
 The requirements for each node are handled by [this Ansible playbook](../ansible/swarm/bootstrap/connect-nfs.yaml).
+
+## Start CI/CD pipeline with doco-cd
+
+This repository uses [doco-cd](https://github.com/kimdre/doco-cd) for CD. Unlike other tools (like Flux for k8s) doco-cd can't mange itself (yet). This means we need to boostrap the cluster by starting doco-cd. This is done using the Docker Compose file in the root of the repository. I am running it in swarm mode, so I need to deploy doco-cd as a stack:
+
+    docker stack deploy -c docker-compose.yaml -d doco-cd
+
+I do this on `swarm01` after copying over the compose file with SCP:
+
+    scp docker-compose.yaml serveradmin@192.168.20.11:/home/serveradmin/docker-compose.yaml
+
+It`s not fully automated (yet), but good enough.
