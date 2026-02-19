@@ -1,0 +1,4 @@
+name: test
+working_dir: /deploy/test
+compose_files: 
+  - test.compose.yaml
