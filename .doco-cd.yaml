@@ -1,5 +1,5 @@
 name: test
-destroy: true
+destroy: false
 working_dir: /deploy/test
 compose_files: 
   - test.compose.yaml
