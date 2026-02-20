@@ -55,7 +55,7 @@ services:
     security_opt:
       - no-new-privileges=true
     deploy:
-      replicas: 1
+      replicas: 0
 
 networks:
   proxy_network:
