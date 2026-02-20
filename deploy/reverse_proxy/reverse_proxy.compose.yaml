@@ -52,7 +52,7 @@ services:
         caddy.crowdsec.api_key: $CROWDSEC_API_KEY
         caddy.crowdsec.appsec_url: http://crowdsec:7422
         caddy_1: "*.$INTERNAL_DOMAIN"
-        caddy_1.tls.dns.cloudflare: $CLOUDFLARE_API_TOKEN
+        caddy_1.tls.dns: cloudflare $CLOUDFLARE_API_TOKEN
         caddy_1.tls.propagation_delay: 2m
         caddy_1.tls.resolvers: 1.1.1.1
         
