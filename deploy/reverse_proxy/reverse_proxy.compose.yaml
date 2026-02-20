@@ -21,6 +21,7 @@ services:
     networks:
       - proxy_network
       - internal
+      - internal_docker-proxy
     environment:
       TZ: Europe/Vienna
       DOCKER_HOST: tcp://socket-proxy:2375
