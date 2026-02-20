@@ -23,7 +23,7 @@ services:
       - internal
     environment:
       TZ: Europe/Vienna
-      DOCKER_HOST: unix:///run/proxy/docker.sock
+      DOCKER_HOST: unix:///var/run/docker.sock
     volumes:
       - socket-proxy.run:/var/run
       - /mnt/swarm-data/caddy/data:/data
