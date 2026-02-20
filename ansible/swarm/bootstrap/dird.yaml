@@ -64,12 +64,21 @@
         dest: /etc/systemd/system/dird.service
       when: not dird_service_file.stat.exists
 
+    - name: Copy script to /usr/local/bin
+      become: true
+      copy:
+        src: /tmp/docker-ingress-routing-daemon-{{ dird_version }}/docker-ingress-routing-daemon
+        remote_src: true
+        dest: /usr/local/bin/docker-ingress-routing-daemon
+        mode: '0755'
+
     - name: Enable and start DIRD service
       become: true
       systemd:
         name: dird
         enabled: true
         state: started
+        daemon_reload: true
 
     - name: Cleanup
       file: 
