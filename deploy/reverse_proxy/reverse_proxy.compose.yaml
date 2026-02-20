@@ -1,14 +1,11 @@
 services:
   socket-proxy:
-    image: 11notes/socket-proxy:2.1.7
-    read_only: true
-    user: "0:988"
+    image: tecnativa/docker-socket-proxy:0.4.2
+    hostname: socket-proxy
     environment:
       TZ: Europe/Vienna
-      SOCKET_PROXY_HTTP_LISTEN_IP: 127.0.0.1 # disable HTTP listening
     volumes:
-      - /var/run/docker.sock:/run/docker.sock:ro 
-      - socket-proxy.run:/run/proxy
+      - /var/run/docker.sock:/run/docker.sock
     deploy:
       mode: global
 
@@ -23,9 +20,8 @@ services:
       - internal
     environment:
       TZ: Europe/Vienna
-      DOCKER_HOST: unix:///var/run/docker.sock
+      DOCKER_HOST: tcp://socket-proxy:2375
     volumes:
-      - socket-proxy.run:/var/run
       - /mnt/swarm-data/caddy/data:/data
       - /mnt/swarm-data/caddy/config:/config
       - /mnt/swarm-data/caddy/logs:/var/log/caddy
@@ -65,8 +61,5 @@ networks:
     driver: overlay
   internal:
     driver: overlay
-
-volumes:
-  socket-proxy.run:
-    name: socket-proxy.run
-    driver: local
+  docker_proxy:
+    driver: overlay
