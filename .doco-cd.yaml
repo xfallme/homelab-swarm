@@ -14,4 +14,4 @@ external_secrets:
   EMAIL: "op://GitOps/Data/email"
   CROWDSEC_API_KEY: "op://GitOps/CADDY_CROWDSEC_API_KEY/credential"
   INTERNAL_DOMAIN: "op://GitOps/Data/internal_domain"
-  CLOUDFLARE_API_TOKEN: "op://GitOps/CLOUDFLARE_API_TOKEN/credential"
+  CLOUDFLARE_API_TOKEN: "op://GitOps/CADDY_CLOUDFLARE_API_TOKEN/credential"
