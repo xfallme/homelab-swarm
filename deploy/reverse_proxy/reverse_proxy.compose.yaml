@@ -1,7 +1,7 @@
 services:
   socket-proxy:
-    image: tecnativa/docker-socket-proxy:v0.4.2
-    hostname: socket-proxy
+    image: ghcr.io/tecnativa/docker-socket-proxy:v0.4.2
+    privileged: true
     environment:
       TZ: Europe/Vienna
     volumes:
