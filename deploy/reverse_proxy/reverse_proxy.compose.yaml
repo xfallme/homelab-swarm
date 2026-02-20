@@ -26,8 +26,10 @@ services:
     image: ghcr.io/xfallme/homelab-swarm-caddy:2.10.2
     ports:
       - 80:80 # http
-      - 443:443 # https
-      - 44443:44443 # external https
+      - 443:443/tcp # https
+      - 443:443/udp # http3
+      - 44443:44443/tcp # external https
+      - 44443:44443/udp # external http3
     networks:
       - proxy_network
       - internal
