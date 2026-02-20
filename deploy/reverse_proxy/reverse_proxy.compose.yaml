@@ -25,7 +25,7 @@ services:
       TZ: Europe/Vienna
       DOCKER_HOST: unix:///run/proxy/docker.sock
     volumes:
-      - socket-proxy.run:/run/proxy:ro
+      - socket-proxy.run:/var/run
       - /mnt/swarm-data/caddy/data:/data
       - /mnt/swarm-data/caddy/config:/config
       - /mnt/swarm-data/caddy/logs:/var/log/caddy
@@ -43,6 +43,7 @@ services:
 
   crowdsec:
     image: crowdsecurity/crowdsec:v1.7.6
+    hostname: crowdsec
     networks:
       - internal
     environment:
