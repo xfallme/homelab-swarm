@@ -1,8 +1,10 @@
 name: test
-destroy: true
+destroy: false
 working_dir: /deploy/test
 compose_files: 
   - test.compose.yaml
+external_secrets:
+  INTERNAL_DOMAIN: "op://GitOps/Data/internal_domain"
 ---
 name: reverse_proxy
 working_dir: /deploy/reverse_proxy
