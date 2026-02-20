@@ -52,6 +52,7 @@ services:
       - ./crowdsec/acquis.yaml:/etc/crowdsec/acquis.yaml
       - /mnt/swarm-data/caddy/logs:/var/log/caddy:ro
       - /mnt/swarm-data/crowdsec/data:/var/lib/crowdsec/data/
+      - /mnt/swarm-data/crowdsec/config:/etc/crowdsec/
     security_opt:
       - no-new-privileges=true
     deploy:
