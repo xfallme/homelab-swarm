@@ -1,0 +1,80 @@
+- name: Configure Docker Ingress Routing Daemon (DIRD)
+  hosts: swarm
+
+  vars:
+    dird_version: "4.3.0"
+
+  tasks:
+    - name: Download DIRD
+      get_url:
+        url: "https://github.com/newsnowlabs/docker-ingress-routing-daemon/archive/refs/tags/v{{ dird_version }}.tar.gz"
+        dest: /tmp/dird-v{{ dird_version }}.tar.gz
+    
+    - name: Unarchive DIRD
+      unarchive:
+        src: /tmp/dird-v{{ dird_version }}.tar.gz
+        remote_src: true
+        dest: /tmp/
+
+    - name: Run DIRD as root to get options
+      become: true
+      command: 
+        chdir: "/tmp/docker-ingress-routing-daemon-{{ dird_version }}"
+        cmd: "./docker-ingress-routing-daemon"
+      register: dird_output
+      failed_when: dird_output.rc not in [0, 1]
+
+    - name: Extract ingress subnet and node IP
+      set_fact:
+        dird_ingress_subnet: "{{ dird_output.stderr | regex_search('- Ingress subnet: (\\d{1,3}.\\d{1,3}.\\d{1,3}.\\d{1,3}\/\\d{1,2})', '\\1') }}"
+        dird_ingress_ip: "{{ dird_output.stderr | regex_search('- This node\\'s ingress network IP: (\\d{1,3}.\\d{1,3}.\\d{1,3}.\\d{1,3})', '\\1') }}"
+
+    - name: Cluster IPs
+      set_fact:
+        cluster_ingress_ips: "{{ hostvars | json_query('*.dird_ingress_ip[]') | join(',') }}"
+      run_once: true
+
+    - name: Prepare service file (1/2)
+      lineinfile:
+        path: /tmp/docker-ingress-routing-daemon-{{ dird_version }}/etc/systemd/system/dird.service
+        state: absent
+        regexp: '^ExecStart='
+    
+    - name: Prepare service file (2/2)
+      lineinfile:
+        path: /tmp/docker-ingress-routing-daemon-{{ dird_version }}/etc/systemd/system/dird.service
+        line: "ExecStart=/usr/local/bin/docker-ingress-routing-daemon --install --preexisting --iptables-wait --ingress-gateway-ips {{ cluster_ingress_ips }} --services reverse_proxy_caddy --tcp-ports 80,443,44443 --udp-ports 80,443,44443"
+        insertbefore: '^Restart=always'
+
+    - name: Check if service file already exists
+      stat:
+        path: /etc/systemd/system/dird.service
+      register: dird_service_file
+
+    - name: Alert if service file already exists
+      debug:
+        msg: "DIRD service file already exists. Skipping copy. Please verify that the existing service file has the correct configuration."
+      when: dird_service_file.stat.exists
+
+    - name: Copy service file
+      become: true
+      copy:
+        src: /tmp/docker-ingress-routing-daemon-{{ dird_version }}/etc/systemd/system/dird.service
+        remote_src: true
+        dest: /etc/systemd/system/dird.service
+      when: not dird_service_file.stat.exists
+
+    - name: Enable and start DIRD service
+      become: true
+      systemd:
+        name: dird
+        enabled: true
+        state: started
+
+    - name: Cleanup
+      file: 
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - /tmp/dird-v{{ dird_version }}.tar.gz
+        - /tmp/docker-ingress-routing-daemon-{{ dird_version }}
