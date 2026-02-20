@@ -50,11 +50,21 @@
       stat:
         path: /etc/systemd/system/dird.service
       register: dird_service_file
+    
+    - name: Check if script already exists
+      stat:
+        path: /usr/local/bin/docker-ingress-routing-daemon
+      register: dird_script_file
 
     - name: Alert if service file already exists
       debug:
-        msg: "DIRD service file already exists. Skipping copy. Please verify that the existing service file has the correct configuration."
+        msg: "DIRD service file already exists. Skipping copy and service declaration. Please verify that the existing service file has the correct configuration."
       when: dird_service_file.stat.exists
+
+    - name: Alert if script already exists
+      debug:
+        msg: "DIRD script already exists. Skipping copy and service declaration. Please verify that the existing script has the correct configuration."
+      when: dird_script_file.stat.exists
 
     - name: Copy service file
       become: true
@@ -71,6 +81,7 @@
         remote_src: true
         dest: /usr/local/bin/docker-ingress-routing-daemon
         mode: '0755'
+      when: not dird_script_file.stat.exists
 
     - name: Enable and start DIRD service
       become: true
@@ -79,6 +90,7 @@
         enabled: true
         state: started
         daemon_reload: true
+      when: not dird_service_file.stat.exists and not dird_script_file.stat.exists
 
     - name: Cleanup
       file: 
