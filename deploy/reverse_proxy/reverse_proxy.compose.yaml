@@ -1,7 +1,9 @@
 services:
   socket-proxy:
     image: ghcr.io/tecnativa/docker-socket-proxy:v0.4.2
-    privileged: true
+    hostname: socket-proxy
+    networks:
+      - internal_docker-proxy
     environment:
       TZ: Europe/Vienna
     volumes:
@@ -21,7 +23,7 @@ services:
       - internal
     environment:
       TZ: Europe/Vienna
-      DOCKER_HOST: unix:///var/run/docker.sock
+      DOCKER_HOST: tcp://socket-proxy:2375
     volumes:
       - socket-proxy.run:/var/run
       - /mnt/swarm-data/caddy/data:/data
@@ -62,6 +64,8 @@ networks:
     name: proxy_network
     driver: overlay
   internal:
+    driver: overlay
+  internal_docker-proxy:
     driver: overlay
 
 volumes:
