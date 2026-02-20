@@ -6,6 +6,15 @@ services:
       - internal_docker-proxy
     environment:
       TZ: Europe/Vienna
+      CONTAINERS: 1
+      SERVICES: 1
+      NETWORKS: 1
+      CONFIGS: 1
+      TASKS: 1
+      NODES: 1
+      INFO: 1
+      SESSION: 1
+      SWARM: 1
     volumes:
       - /var/run/docker.sock:/run/docker.sock
       - socket-proxy.run:/run/proxy/
