@@ -5,7 +5,7 @@ x-poll-config: &poll-config
 
 services:
   app:
-    image: ghcr.io/kimdre/doco-cd:0.64.0
+    image: ghcr.io/kimdre/doco-cd:0.68.0
     ports:
       - 9120:9120 # Prometheus metrics
     networks:
