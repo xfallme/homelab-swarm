@@ -1,14 +1,15 @@
+# backup polling configuration every 12 hours, incase webhooks are missed
 x-poll-config: &poll-config
   POLL_CONFIG: |
     - url: https://github.com/xfallme/homelab-swarm.git
-      interval: 300
+      interval: 43200
 
 services:
   app:
     image: ghcr.io/kimdre/doco-cd:0.69.0
     hostname: doco-cd
     networks:
-      - proxy_network
+      - external_proxy_network
     environment:
       TZ: Europe/Vienna
       GIT_ACCESS_TOKEN_FILE: /run/secrets/git_access_token
@@ -35,7 +36,7 @@ services:
           memory: 512M
 
 networks:
-  proxy_network:
+  external_proxy_network:
     external: true
 
 secrets:
