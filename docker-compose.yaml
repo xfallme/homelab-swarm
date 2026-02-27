@@ -6,19 +6,20 @@ x-poll-config: &poll-config
 services:
   app:
     image: ghcr.io/kimdre/doco-cd:0.69.0
-    ports:
-      - 9120:9120 # Prometheus metrics
+    hostname: doco-cd
     networks:
-      - doco-cd
+      - proxy_network
     environment:
       TZ: Europe/Vienna
       GIT_ACCESS_TOKEN_FILE: /run/secrets/git_access_token
       <<: *poll-config
       SECRET_PROVIDER: 1password
       SECRET_PROVIDER_ACCESS_TOKEN_FILE: /run/secrets/1password_service_account_token
+      WEBHOOK_SECRET_FILE: /run/secrets/webhook_secret
     secrets:
       - git_access_token
       - 1password_service_account_token
+      - webhook_secret
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /mnt/swarm-data/doco-cd/data:/data
@@ -34,12 +35,13 @@ services:
           memory: 512M
 
 networks:
-  doco-cd:
-    name: doco-cd
-    driver: overlay
+  proxy_network:
+    external: true
 
 secrets:
   git_access_token:
     external: true
   1password_service_account_token:
+    external: true
+  webhook_secret:
     external: true
