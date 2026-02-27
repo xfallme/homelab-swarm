@@ -8,38 +8,45 @@
       "matchUpdateTypes": ["major"],
       "semanticCommitType": "feat",
       "commitMessagePrefix": "{{semanticCommitType}}({{semanticCommitScope}})!:",
-      "commitMessageExtra": "( {{currentVersion}} ➔ {{newVersion}} )"
+      "commitMessageExtra": "( {{currentVersion}} ➔ {{newVersion}} )",
+      "labels": ["type/major"]
     },
     {
       "matchUpdateTypes": ["minor"],
       "semanticCommitType": "feat",
-      "commitMessageExtra": "( {{currentVersion}} ➔ {{newVersion}} )"
+      "commitMessageExtra": "( {{currentVersion}} ➔ {{newVersion}} )",
+      "labels": ["type/minor"]
     },
     {
       "matchUpdateTypes": ["patch"],
       "semanticCommitType": "fix",
-      "commitMessageExtra": "( {{currentVersion}} ➔ {{newVersion}} )"
+      "commitMessageExtra": "( {{currentVersion}} ➔ {{newVersion}} )",
+      "labels": ["type/patch"]
     },
     {
       "matchUpdateTypes": ["digest"],
       "semanticCommitType": "chore",
-      "commitMessageExtra": "( {{currentDigestShort}} ➔ {{newDigestShort}} )"
+      "commitMessageExtra": "( {{currentDigestShort}} ➔ {{newDigestShort}} )",
+      "labels": ["type/digest"]
     },
     {
       "matchDatasources": ["docker"],
       "semanticCommitScope": "container",
-      "commitMessageTopic": "image {{depName}}"
+      "commitMessageTopic": "image {{depName}}",
+      "labels": ["renovate/container"]
     },
     {
       "matchManagers": ["github-actions"],
       "semanticCommitType": "ci",
       "semanticCommitScope": "github-action",
-      "commitMessageTopic": "action {{depName}}"
+      "commitMessageTopic": "action {{depName}}",
+      "labels": ["renovate/github-action"]
     },
     {
       "matchDatasources": ["github-releases"],
       "semanticCommitScope": "github-release",
-      "commitMessageTopic": "release {{depName}}"
+      "commitMessageTopic": "release {{depName}}",
+      "labels": ["renovate/github-release"]
     }
   ],
   "docker-compose": {

@@ -1,0 +1,27 @@
+# Areas
+- name: area/github
+  color: "16181F"
+- name: area/ansible
+  color: "E70000"
+- name: area/swarm
+  color: "0974BE"
+# Renovate Types
+- name: renovate/container
+  color: "A6E6DA"
+- name: renovate/github-actions
+  color: "A6E6DA"
+- name: renovate/github-release
+  color: "A6E6DA"
+# Sematic Type
+- name: type/digest
+  color: "FFC208"
+- name: type/patch
+  color: "FFC208"
+- name: type/minor
+  color: "FFC208"
+- name: type/major
+  color: "FFC208"
+# Other
+- name: hold
+  color: "FF0000"
+  

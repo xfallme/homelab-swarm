@@ -1,0 +1,14 @@
+area/github:
+  - changed-files:
+      - any-glob-to-any-file:
+          - .github/**/*
+
+area/ansible:
+  - changed-files:
+      - any-glob-to-any-file:
+          - ansible/**/*
+
+area/swarm:
+  - changed-files:
+      - any-glob-to-any-file:
+          - deploy/**/*
