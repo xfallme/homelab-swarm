@@ -3,6 +3,45 @@
   "extends": [
     "config:recommended"
   ],
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["major"],
+      "semanticCommitType": "feat",
+      "commitMessagePrefix": "{{semanticCommitType}}({{semanticCommitScope}})!:",
+      "commitMessageExtra": "( {{currentVersion}} ➔ {{newVersion}} )"
+    },
+    {
+      "matchUpdateTypes": ["minor"],
+      "semanticCommitType": "feat",
+      "commitMessageExtra": "( {{currentVersion}} ➔ {{newVersion}} )"
+    },
+    {
+      "matchUpdateTypes": ["patch"],
+      "semanticCommitType": "fix",
+      "commitMessageExtra": "( {{currentVersion}} ➔ {{newVersion}} )"
+    },
+    {
+      "matchUpdateTypes": ["digest"],
+      "semanticCommitType": "chore",
+      "commitMessageExtra": "( {{currentDigestShort}} ➔ {{newDigestShort}} )"
+    },
+    {
+      "matchDatasources": ["docker"],
+      "semanticCommitScope": "container",
+      "commitMessageTopic": "image {{depName}}"
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "semanticCommitType": "ci",
+      "semanticCommitScope": "github-action",
+      "commitMessageTopic": "action {{depName}}"
+    },
+    {
+      "matchDatasources": ["github-releases"],
+      "semanticCommitScope": "github-release",
+      "commitMessageTopic": "release {{depName}}"
+    }
+  ],
   "docker-compose": {
     "managerFilePatterns": ["/\\.compose\\.yaml$/"]
   }
