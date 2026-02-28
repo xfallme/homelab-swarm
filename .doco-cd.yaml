@@ -5,6 +5,7 @@ compose_files:
   - test.compose.yaml
 external_secrets:
   INTERNAL_DOMAIN: "op://GitOps/Data/internal_domain"
+  EXTERNAL_DOMAIN: "op://GitOps/Data/external_domain"
 ---
 name: reverse_proxy
 working_dir: /deploy/reverse_proxy
