@@ -23,7 +23,7 @@ services:
 
   caddy:
     # build: ./caddy
-    image: ghcr.io/xfallme/homelab-swarm-caddy:2.10.2
+    image: ghcr.io/xfallme/homelab-swarm-caddy:2.11.1
     ports:
       - 80:80/tcp # http
       - 80:80/udp # http3
