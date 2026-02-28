@@ -4,7 +4,7 @@ services:
     networks:
       - proxy_network
     deploy:
-      mode: global
+      replicas: 3
       labels:
         caddy_1: whoami.$INTERNAL_DOMAIN
         caddy_1.reverse_proxy: "{{upstreams 80}}"
