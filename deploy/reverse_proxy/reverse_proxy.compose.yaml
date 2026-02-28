@@ -64,6 +64,8 @@ services:
         caddy_2.tls.dns: cloudflare $CLOUDFLARE_API_TOKEN
         caddy_2.tls.propagation_delay: 2m
         caddy_2.tls.resolvers: 1.1.1.1
+        caddy_2.route.crowdsec:
+        caddy_2.route.appsec:
         # Webhook endpoint for doco-cd, here for secret lookup
         caddy_3: https://gitops.$EXTERNAL_DOMAIN
         caddy_3.reverse_proxy: doco-cd:80
