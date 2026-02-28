@@ -1,6 +1,7 @@
 name: Caddy Image CI
 
 on:
+  workflow_dispatch:
   push:
     branches: [ main ]
     paths:
@@ -33,7 +34,7 @@ jobs:
 
       - name: Read Caddy version
         id: caddy
-        run: echo "version=$(grep ARG deploy/reverse_proxy/caddy/Dockerfile | cut -d= -f2)" >> $GITHUB_OUTPUT
+        run: echo "version=$(grep '^FROM caddy:' deploy/reverse_proxy/caddy/Dockerfile | tail -n1 | sed -E 's/.*caddy:([0-9.]+).*/\1/')" >> $GITHUB_OUTPUT
       
       - name: Extract Metadata
         id: meta
