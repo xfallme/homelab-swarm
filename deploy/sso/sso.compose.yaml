@@ -45,6 +45,7 @@ services:
       LLDAP_JWT_SECRET: $LLDAP_JWT_SECRET
       LLDAP_KEY_SEED: $LLDAP_KEY_SEED
       LLDAP_LDAP_BASE_DN: $LLDAP_BASE_DN
+      LLDAP_LDAP_USER_PASS: CHANG3_M3
     deploy:
       replicas: 1
       labels:
