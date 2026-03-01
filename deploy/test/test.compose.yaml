@@ -12,5 +12,5 @@ services:
         caddy_2.reverse_proxy: "{{upstreams 80}}"
 
 networks:
-  proxy_network:
+  external_proxy_network:
     external: true
