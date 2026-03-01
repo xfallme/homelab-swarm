@@ -56,19 +56,23 @@ services:
         caddy.crowdsec.api_url: http://crowdsec:8080
         caddy.crowdsec.api_key: $CROWDSEC_API_KEY
         caddy.crowdsec.appsec_url: http://crowdsec:7422
-        caddy_1: "*.$INTERNAL_DOMAIN"
+        # For services only on internal domain
+        # They get a local DNS entry with service.local.example.org
+        caddy_1: https://*.$INTERNAL_DOMAIN:443
         caddy_1.tls.dns: cloudflare $CLOUDFLARE_API_TOKEN
         caddy_1.tls.propagation_delay: 2m
         caddy_1.tls.resolvers: 1.1.1.1
-        caddy_2: https://*.$EXTERNAL_DOMAIN
+        # For services that are also accessible from the internet
+        # They get a Cloudflare DNS entry with service.example.org
+        caddy_2: https://*.$EXTERNAL_DOMAIN:44443
         caddy_2.tls.dns: cloudflare $CLOUDFLARE_API_TOKEN
         caddy_2.tls.propagation_delay: 2m
         caddy_2.tls.resolvers: 1.1.1.1
         caddy_2.route.crowdsec:
         caddy_2.route.appsec:
-        # Webhook endpoint for doco-cd, here for secret lookup
-        caddy_3: https://gitops.$EXTERNAL_DOMAIN
-        caddy_3.reverse_proxy: doco-cd:80
+        # Webhook endpoint for doco-cd, here because of the required secret lookup
+        caddy_3: https://gitops.$EXTERNAL_DOMAIN:44443
+        caddy_3.reverse_proxy: doco-cd:80 # can't use {{upstreams}} here
         
   crowdsec:
     image: crowdsecurity/crowdsec:v1.7.6

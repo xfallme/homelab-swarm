@@ -8,7 +8,7 @@ services:
       labels:
         caddy_1: whoami.$INTERNAL_DOMAIN
         caddy_1.reverse_proxy: "{{upstreams 80}}"
-        caddy_2: https://whoami.$EXTERNAL_DOMAIN
+        caddy_2: https://whoami.$EXTERNAL_DOMAIN:44443
         caddy_2.reverse_proxy: "{{upstreams 80}}"
 
 networks:
