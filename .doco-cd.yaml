@@ -23,6 +23,10 @@ working_dir: /deploy/sso
 compose_files:
   - sso.compose.yaml
 external_secrets:
+  INTERNAL_DOMAIN: "op://GitOps/Data/internal_domain"
   EXTERNAL_DOMAIN: "op://GitOps/Data/external_domain"
   POCKET_ID_ENCRYPTION_KEY: "op://GitOps/POCKET_ID_ENCRYPTION_KEY/credential"
   POCKET_ID_MAXMIND_GEOLITE_LICENSE_KEY: "op://GitOps/POCKET_ID_MAXMIND_GEOLITE_LICENSE_KEY/credential"
+  LLDAP_JWT_SECRET: "op://GitOps/LLDAP_JWT_SECRET/credential"
+  LLDAP_KEY_SEED: "op://GitOps/LLDAP_KEY_SEED/credential"
+  LLDAP_BASE_DN: "op://GitOps/Data/ldap_base_dn"

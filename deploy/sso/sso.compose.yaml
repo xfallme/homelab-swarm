@@ -3,6 +3,7 @@ services:
     image: ghcr.io/pocket-id/pocket-id:v2.3.0-distroless
     networks:
       - external_proxy_network
+      - lldap_pocket_id
     read_only: true
     user: 1000:1000
     environment:
@@ -29,6 +30,31 @@ services:
         caddy_2: https://sso.$EXTERNAL_DOMAIN:44443
         caddy_2.reverse_proxy: "{{upstreams 1411}}"
 
+  lldap:
+    image: lldap/lldap:v0.6.2-alpine-rootless
+    hostname: lldap
+    networks:
+      - proxy_network
+      - lldap_pocket_id
+    volumes:
+      - /mnt/swarm-data/sso/lldap:/data
+    environment:
+      TZ: Europe/Vienna
+      UID: 1000
+      GID: 1000
+      LLDAP_JWT_SECRET: $LLDAP_JWT_SECRET
+      LLDAP_KEY_SEED: $LLDAP_KEY_SEED
+      LLDAP_LDAP_BASE_DN: $LLDAP_BASE_DN
+    deploy:
+      replicas: 1
+      labels:
+        caddy_1: ldap.$INTERNAL_DOMAIN
+        caddy_1.reverse_proxy: "{{upstreams 17170}}"
+
 networks:
+  proxy_network:
+    external: true
   external_proxy_network:
     external: true
+  lldap_pocket_id:
+    driver: overlay
