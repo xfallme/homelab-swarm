@@ -39,7 +39,7 @@ services:
     environment:
       TZ: Europe/Vienna
       DOCKER_HOST: tcp://socket-proxy:2375
-      CADDY_INGRESS_NETWORKS: proxy_network
+      CADDY_INGRESS_NETWORKS: proxy_network,external_proxy_network
     volumes:
       - socket-proxy.run:/var/run
       - /mnt/swarm-data/caddy/data:/data
