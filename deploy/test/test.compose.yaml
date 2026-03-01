@@ -2,7 +2,7 @@ services:
   whoami:
     image: traefik/whoami:v1.10.4
     networks:
-      - proxy_network
+      - external_proxy_network
     deploy:
       replicas: 3
       labels:

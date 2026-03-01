@@ -9,8 +9,6 @@ external_secrets:
 ---
 name: reverse_proxy
 working_dir: /deploy/reverse_proxy
-build_opts:
-  force_image_pull: true
 compose_files:
   - reverse_proxy.compose.yaml
 external_secrets:
@@ -19,3 +17,11 @@ external_secrets:
   INTERNAL_DOMAIN: "op://GitOps/Data/internal_domain"
   EXTERNAL_DOMAIN: "op://GitOps/Data/external_domain"
   CLOUDFLARE_API_TOKEN: "op://GitOps/CADDY_CLOUDFLARE_API_TOKEN/credential"
+---
+name: sso
+working_dir: /deploy/sso
+compose_files:
+  - sso.compose.yaml
+external_secrets:
+  EXTERNAL_DOMAIN: "op://GitOps/Data/external_domain"
+  POCKET_ID_ENCRYPTION_KEY: "op://GitOps/POCKET_ID_ENCRYPTION_KEY/credential"
