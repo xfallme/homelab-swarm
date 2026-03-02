@@ -16,8 +16,9 @@ services:
       PGID: 1000
       UI_CONFIG_DISABLED: "true"
       # POCKET_ID
+      APP_NAME: SSO
       HOME_PAGE_URL: /settings/apps
-      ALLOW_USER_SIGNUPS: withToken
+      ALLOW_USER_SIGNUPS: disabled
       ACCENT_COLOR: "#379092"
       # SMTP
       # LDAP
