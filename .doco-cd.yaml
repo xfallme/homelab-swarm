@@ -30,3 +30,5 @@ external_secrets:
   LLDAP_JWT_SECRET: "op://GitOps/LLDAP_JWT_SECRET/credential"
   LLDAP_KEY_SEED: "op://GitOps/LLDAP_KEY_SEED/credential"
   LLDAP_BASE_DN: "op://GitOps/Data/ldap_base_dn"
+  POCKET_ID_LDAP_BIND_DN: "op://GitOps/POCKET_ID_LDAP/BIND_DN"
+  POCKET_ID_LDAP_BIND_PASSWORD: "op://GitOps/POCKET_ID_LDAP/BIND_PASSWORD"
