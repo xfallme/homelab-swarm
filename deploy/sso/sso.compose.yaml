@@ -22,7 +22,7 @@ services:
       # SMTP
       # LDAP
       LDAP_ENABLED: "true"
-      LDAP_URL: ldap://ldap:1389
+      LDAP_URL: ldap://lldap:3890
       LDAP_BIND_DN: $POCKET_ID_LDAP_BIND_DN
       LDAP_BIND_PASSWORD: $POCKET_ID_LDAP_BIND_PASSWORD
       LDAP_BASE: $LLDAP_BASE_DN
