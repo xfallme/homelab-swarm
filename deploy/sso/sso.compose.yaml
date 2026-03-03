@@ -72,7 +72,15 @@ services:
       LLDAP_JWT_SECRET: $LLDAP_JWT_SECRET
       LLDAP_KEY_SEED: $LLDAP_KEY_SEED
       LLDAP_LDAP_BASE_DN: $LLDAP_BASE_DN
-      LLDAP_LDAP_USER_PASS: CHANG3_M3
+      LLDAP_LDAP_USER_PASS: CHANG3_M3 # later changed in the UI, only required for the initial login
+      # SMTP
+      LLDAP_SMTP_OPTIONS__ENABLE_PASSWORD_RESET: "true"
+      LLDAP_SMTP_OPTIONS__SERVER: smtp.mail.me.com # Apple SMTP server for iCloud managed mail domains
+      LLDAP_SMTP_OPTIONS__PORT: 587
+      LLDAP_SMTP_OPTIONS__SMTP_ENCRYPTION: TLS
+      LLDAP_SMTP_OPTIONS__USER: $SMTP_USER
+      LLDAP_SMTP_OPTIONS__PASSWORD: $SMTP_PASSWORD
+      LLDAP_SMTP_OPTIONS__FROM: SSO Admin <admin@$EXTERNAL_DOMAIN>
     deploy:
       replicas: 1
       labels:

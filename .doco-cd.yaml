@@ -32,3 +32,5 @@ external_secrets:
   LLDAP_BASE_DN: "op://GitOps/Data/ldap_base_dn"
   POCKET_ID_LDAP_BIND_DN: "op://GitOps/POCKET_ID_LDAP/BIND_DN"
   POCKET_ID_LDAP_BIND_PASSWORD: "op://GitOps/POCKET_ID_LDAP/BIND_PASSWORD"
+  SMTP_USER: "op://GitOps/SMTP/USER"
+  SMTP_PASSWORD: "op://GitOps/SMTP/PASSWORD"
