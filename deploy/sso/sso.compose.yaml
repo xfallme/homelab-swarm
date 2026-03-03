@@ -73,6 +73,7 @@ services:
       LLDAP_KEY_SEED: $LLDAP_KEY_SEED
       LLDAP_LDAP_BASE_DN: $LLDAP_BASE_DN
       LLDAP_LDAP_USER_PASS: CHANG3_M3 # later changed in the UI, only required for the initial login
+      LLDAP_HTTP_URL: https://ldap.$INTERNAL_DOMAIN
       # SMTP
       LLDAP_SMTP_OPTIONS__ENABLE_PASSWORD_RESET: "true"
       LLDAP_SMTP_OPTIONS__SERVER: smtp.mail.me.com # Apple SMTP server for iCloud managed mail domains
