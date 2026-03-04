@@ -11,6 +11,7 @@ services:
     networks:
       - external_proxy_network
     environment:
+      LOG_LEVEL: debug
       TZ: Europe/Vienna
       GIT_ACCESS_TOKEN_FILE: /run/secrets/git_access_token
       <<: *poll-config

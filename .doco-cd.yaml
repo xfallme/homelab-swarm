@@ -3,6 +3,7 @@ destroy: false
 working_dir: /deploy/test
 compose_files: 
   - test.compose.yaml
+reference: refs/heads/main
 external_secrets:
   INTERNAL_DOMAIN: "op://GitOps/Data/internal_domain"
   EXTERNAL_DOMAIN: "op://GitOps/Data/external_domain"
@@ -11,6 +12,7 @@ name: reverse_proxy
 working_dir: /deploy/reverse_proxy
 compose_files:
   - reverse_proxy.compose.yaml
+reference: refs/heads/main
 external_secrets:
   EMAIL: "op://GitOps/Data/email"
   CROWDSEC_API_KEY: "op://GitOps/CADDY_CROWDSEC_API_KEY/credential"
@@ -22,6 +24,7 @@ name: sso
 working_dir: /deploy/sso
 compose_files:
   - sso.compose.yaml
+reference: refs/heads/main
 external_secrets:
   INTERNAL_DOMAIN: "op://GitOps/Data/internal_domain"
   EXTERNAL_DOMAIN: "op://GitOps/Data/external_domain"
