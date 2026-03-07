@@ -1,6 +1,6 @@
 services:
   pocket-id:
-    image: ghcr.io/pocket-id/pocket-id:v2.3.0-distroless
+    image: ghcr.io/pocket-id/pocket-id:v2.4.0-distroless
     networks:
       - external_proxy_network
       - lldap_pocket_id
