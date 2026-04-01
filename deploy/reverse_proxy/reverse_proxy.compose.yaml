@@ -75,7 +75,7 @@ services:
         caddy_3.reverse_proxy: doco-cd:80 # can't use {{upstreams}} here
         
   crowdsec:
-    image: crowdsecurity/crowdsec:v1.7.6
+    image: crowdsecurity/crowdsec:v1.7.7
     hostname: crowdsec
     networks:
       - internal
