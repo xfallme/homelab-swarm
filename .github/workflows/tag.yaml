@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Get Previous Tag and Determine New Tag
         id: tag
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           result-encoding: string
@@ -40,7 +40,7 @@ jobs:
             return nextTag;
       
       - name: Create Tag
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
