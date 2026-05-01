@@ -58,7 +58,7 @@ services:
         caddy_2.reverse_proxy: "{{upstreams 1411}}"
 
   lldap:
-    image: lldap/lldap:v0.6.2-alpine-rootless
+    image: lldap/lldap:v0.6.3-alpine-rootless
     hostname: lldap
     networks:
       - proxy_network
