@@ -1,6 +1,6 @@
 services:
   socket-proxy:
-    image: ghcr.io/tecnativa/docker-socket-proxy:v0.4.2
+    image: ghcr.io/tecnativa/docker-socket-proxy:v0.5.0
     hostname: socket-proxy
     networks:
       - internal_docker-proxy
