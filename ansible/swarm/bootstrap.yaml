@@ -7,4 +7,7 @@
 - import_playbook: bootstrap/docker.yaml
 - import_playbook: maintenance/reboot.yaml
 - import_playbook: bootstrap/docker-swarm.yaml
+- import_playbook: bootstrap/docker-secrets.yaml
+- import_playbook: bootstrap/dird.yaml
 - import_playbook: bootstrap/connect-nfs.yaml
+- import_playbook: maintenance/reboot.yaml

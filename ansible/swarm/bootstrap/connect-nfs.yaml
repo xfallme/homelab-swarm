@@ -3,7 +3,7 @@
   become: true
 
   vars:
-    nfs_server: "192.168.20.14"
+    nfs_server: "10.14.20.14"
 
   tasks:
     - name: Install NFS client

@@ -2,25 +2,21 @@ all:
   children:
     pve:
       hosts:
-        zeus:
-          ansible_host: 192.168.20.10
+        apollo:
+          ansible_host: 10.14.20.10
     swarm:
       hosts:
         swarm01:
-          ansible_host: 192.168.20.11
+          ansible_host: 10.14.20.11
           ansible_user: serveradmin
         swarm02:
-          ansible_host: 192.168.20.12
+          ansible_host: 10.14.20.12
           ansible_user: serveradmin
         swarm03:
-          ansible_host: 192.168.20.13
+          ansible_host: 10.14.20.13
           ansible_user: serveradmin
     nfs:
       hosts:
         nfs-server:
-          ansible_host: 192.168.20.14
+          ansible_host: 10.14.20.14
           ansible_user: root
-    pis:
-      hosts:
-        micro01:
-          ansible_host: 192.168.20.21

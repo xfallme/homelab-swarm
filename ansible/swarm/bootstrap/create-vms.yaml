@@ -3,14 +3,14 @@
   gather_facts: false
 
   vars:
-    proxmox_node: "zeus"
-    proxmox_api_host: "192.168.20.10"
+    proxmox_node: "apollo"
+    proxmox_api_host: "10.14.20.10"
     proxmox_api_user: "root@pam"
 
     template_vmid: 9000
     storage: "local-lvm"
     vmid_base: 111
-    gateway: "192.168.20.1"
+    gateway: "10.14.20.1"
 
   tasks:
     - name: Build swarm VM list from inventory
@@ -24,8 +24,8 @@
 
     - name: Get Proxmox API credentials from 1Password
       set_fact:
-        proxmox_api_token_id: "{{ lookup('community.general.onepassword', 'Proxmox API Key', field='username', vault='Hosting') }}"
-        proxmox_api_token_secret: "{{ lookup('community.general.onepassword', 'Proxmox API Key', field='password', vault='Hosting') }}"
+        proxmox_api_token_id: "{{ lookup('community.general.onepassword', 'Proxmox API Key (Skynet)', field='username', vault='Hosting') }}"
+        proxmox_api_token_secret: "{{ lookup('community.general.onepassword', 'Proxmox API Key (Skynet)', field='password', vault='Hosting') }}"
 
     - name: Clone VMs from template (full clone)
       community.proxmox.proxmox_kvm:
@@ -41,6 +41,7 @@
         full: true
         storage: "{{ storage }}"
         timeout: 300
+        validate_certs: false
       loop: "{{ swarm_vms }}"
       delegate_to: localhost
 
@@ -58,9 +59,10 @@
         ide:
           ide2: "{{ storage }}:cloudinit"
         ipconfig:
-          ipconfig0: "ip={{ hostvars[item.0].ansible_host }}/24,gw={{ gateway }},ip6=dhcp"
+          ipconfig0: "ip={{ hostvars[item.0].ansible_host }}/24,gw={{ gateway }}"
         cores: 4
         memory: 8192
         timeout: 300
+        validate_certs: false
       loop: "{{ swarm_vms }}"
       delegate_to: localhost

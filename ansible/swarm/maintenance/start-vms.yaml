@@ -3,12 +3,12 @@
   gather_facts: false
 
   vars:
-    proxmox_node: "zeus"
-    proxmox_api_host: "192.168.20.10"
+    proxmox_node: "apollo"
+    proxmox_api_host: "10.14.20.10"
 
     proxmox_api_user: "root@pam"
-    proxmox_api_token_id: "{{ lookup('community.general.onepassword', 'Proxmox API Key', field='username', vault='Hosting') }}"
-    proxmox_api_token_secret: "{{ lookup('community.general.onepassword', 'Proxmox API Key', field='password', vault='Hosting') }}"
+    proxmox_api_token_id: "{{ lookup('community.general.onepassword', 'Proxmox API Key (Skynet)', field='username', vault='Hosting') }}"
+    proxmox_api_token_secret: "{{ lookup('community.general.onepassword', 'Proxmox API Key (Skynet)', field='password', vault='Hosting') }}"
 
     vmid_base: 111
 
@@ -31,6 +31,7 @@
         node: "{{ proxmox_node }}"
         vmid: "{{ item.1 }}"
         state: started
+        validate_certs: false
       loop: "{{ swarm_vms }}"
       delegate_to: localhost
 
@@ -39,5 +40,5 @@
         host: "{{ hostvars[item.0].ansible_host }}"
         port: 22
         state: present
-        timeout: 300
+        timeout: 600
       loop: "{{ swarm_vms }}"

@@ -3,8 +3,8 @@
   gather_facts: false
 
   vars:
-    proxmox_node: "zeus"
-    proxmox_api_host: "192.168.20.10"
+    proxmox_node: "apollo"
+    proxmox_api_host: "10.14.20.10"
     proxmox_api_user: "root@pam"
 
     vmid_base: 111
@@ -22,8 +22,8 @@
 
     - name: Get Proxmox API credentials from 1Password
       set_fact:
-        proxmox_api_token_id: "{{ lookup('community.general.onepassword', 'Proxmox API Key', field='username', vault='Hosting') }}"
-        proxmox_api_token_secret: "{{ lookup('community.general.onepassword', 'Proxmox API Key', field='password', vault='Hosting') }}"
+        proxmox_api_token_id: "{{ lookup('community.general.onepassword', 'Proxmox API Key (Skynet)', field='username', vault='Hosting') }}"
+        proxmox_api_token_secret: "{{ lookup('community.general.onepassword', 'Proxmox API Key (Skynet)', field='password', vault='Hosting') }}"
 
     - name: Stop VMs
       community.proxmox.proxmox_kvm:
@@ -34,6 +34,7 @@
         node: "{{ proxmox_node }}"
         vmid: "{{ item.1 }}"
         state: stopped
+        validate_certs: false
       loop: "{{ swarm_vms }}"
       delegate_to: localhost
       ignore_errors: true
@@ -47,5 +48,6 @@
         node: "{{ proxmox_node }}"
         vmid: "{{ item.1 }}"
         state: absent
+        validate_certs: false
       loop: "{{ swarm_vms }}"
       delegate_to: localhost
