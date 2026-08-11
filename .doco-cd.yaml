@@ -1,3 +1,10 @@
+name: doco-cd-updater
+reference: main
+working_dir: /deploy/doco-cd
+compose_files: 
+  - updater.compose.yaml
+force_recreate: true
+---
 name: test
 destroy: false
 working_dir: /deploy/test

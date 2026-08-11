@@ -3,7 +3,7 @@ services:
     image: ghcr.io/pocket-id/pocket-id:v2.13.0-distroless
     networks:
       - external_proxy_network
-      - lldap_pocket_id
+      - internal
     read_only: true
     user: 1000:1000
     environment:
@@ -54,15 +54,13 @@ services:
       labels:
         caddy_1: sso.$EXTERNAL_DOMAIN
         caddy_1.reverse_proxy: "{{upstreams 1411}}"
-        caddy_2: https://sso.$EXTERNAL_DOMAIN:44443
-        caddy_2.reverse_proxy: "{{upstreams 1411}}"
 
   lldap:
     image: lldap/lldap:v0.6.3-alpine-rootless
     hostname: lldap
     networks:
       - proxy_network
-      - lldap_pocket_id
+      - internal
     volumes:
       - /mnt/swarm-data/sso/lldap:/data
     environment:
@@ -73,7 +71,7 @@ services:
       LLDAP_KEY_SEED: $LLDAP_KEY_SEED
       LLDAP_LDAP_BASE_DN: $LLDAP_BASE_DN
       LLDAP_LDAP_USER_PASS: CHANG3_M3 # later changed in the UI, only required for the initial login
-      LLDAP_HTTP_URL: https://ldap.$INTERNAL_DOMAIN
+      LLDAP_HTTP_URL: https://ldap.$EXTERNAL_DOMAIN
       # SMTP
       LLDAP_SMTP_OPTIONS__ENABLE_PASSWORD_RESET: "true"
       LLDAP_SMTP_OPTIONS__SERVER: smtp.mail.me.com # Apple SMTP server for iCloud managed mail domains
@@ -85,7 +83,7 @@ services:
     deploy:
       replicas: 1
       labels:
-        caddy_1: ldap.$INTERNAL_DOMAIN
+        caddy_1: ldap.$EXTERNAL_DOMAIN
         caddy_1.reverse_proxy: "{{upstreams 17170}}"
 
 networks:
@@ -93,5 +91,5 @@ networks:
     external: true
   external_proxy_network:
     external: true
-  lldap_pocket_id:
+  internal:
     driver: overlay

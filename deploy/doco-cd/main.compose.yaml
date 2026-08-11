@@ -1,9 +1,4 @@
 # backup polling configuration every 12 hours, incase webhooks are missed
-x-poll-config: &poll-config
-  POLL_CONFIG: |
-    - url: https://github.com/xfallme/homelab-swarm.git
-      interval: 43200
-
 services:
   app:
     image: ghcr.io/kimdre/doco-cd:0.107.0
@@ -14,7 +9,7 @@ services:
       LOG_LEVEL: debug
       TZ: Europe/Vienna
       GIT_ACCESS_TOKEN_FILE: /run/secrets/git_access_token
-      <<: *poll-config
+      POLL_CONFIG_FILE: /poll-config.yml # fallback polling configuration, in case webhooks are missed
       SECRET_PROVIDER: 1password
       SECRET_PROVIDER_ACCESS_TOKEN_FILE: /run/secrets/1password_service_account_token
       WEBHOOK_SECRET_FILE: /run/secrets/webhook_secret
@@ -47,3 +42,10 @@ secrets:
     external: true
   webhook_secret:
     external: true
+
+configs:
+  poll-config.yml:
+    content: |
+      - url: https://github.com/xfallme/homelab-swarm.git
+        reference: main
+        interval: 24h
