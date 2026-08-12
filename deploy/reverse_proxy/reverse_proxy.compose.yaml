@@ -62,24 +62,21 @@ services:
         caddy_1.tls.dns: cloudflare $CLOUDFLARE_API_TOKEN
         caddy_1.tls.propagation_delay: 2m
         caddy_1.tls.resolvers: 1.1.1.1
-        # For services only on internal network but are listed under normal domain
-        # They get a local DNS entry with service.local.example.org
-        caddy_2: https://*.$EXTERNAL_DOMAIN:443
+        # For services only on internal network but are listed under normal domain and services that are also accessible from the internet
+        caddy_2: https://*.$EXTERNAL_DOMAIN:443 https://*.$EXTERNAL_DOMAIN:44443
         caddy_2.tls.dns: cloudflare $CLOUDFLARE_API_TOKEN
         caddy_2.tls.propagation_delay: 2m
         caddy_2.tls.resolvers: 1.1.1.1
-        # For services that are also accessible from the internet
-        # They get a Cloudflare DNS entry with service.example.org
-        caddy_3: https://*.$EXTERNAL_DOMAIN:44443
-        # cert is requested above
-        # caddy_3.tls.dns: cloudflare $CLOUDFLARE_API_TOKEN
-        # caddy_3.tls.propagation_delay: 2m
-        # caddy_3.tls.resolvers: 1.1.1.1
-        caddy_3.route.crowdsec:
-        caddy_3.route.appsec:
+        caddy_2.@public.expression: "{http.request.port} == 44443"
+        caddy_2.route_0.@public:
+        caddy_2.route_0.@public.appsec:
+        caddy_2.route_0.@public.crowdsec:
         # Webhook endpoint for doco-cd, here because of the required secret lookup
         caddy_4: https://gitops.$SITE_EXTERNAL_DOMAIN:44443
         caddy_4.reverse_proxy: doco-cd:80 # can't use {{upstreams}} here
+        caddy_4.tls.dns: cloudflare $CLOUDFLARE_API_TOKEN
+        caddy_4.tls.propagation_delay: 2m
+        caddy_4.tls.resolvers: 1.1.1.1
         
   crowdsec:
     image: crowdsecurity/crowdsec:v1.7.8
