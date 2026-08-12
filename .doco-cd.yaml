@@ -25,6 +25,7 @@ external_secrets:
   CROWDSEC_API_KEY: "op://GitOps/CADDY_CROWDSEC_API_KEY/credential"
   INTERNAL_DOMAIN: "op://GitOps/Data/internal_domain"
   EXTERNAL_DOMAIN: "op://GitOps/Data/external_domain"
+  SITE_EXTERNAL_DOMAIN: "op://GitOps/Data/site_external_domain" # for now static
   CLOUDFLARE_API_TOKEN: "op://GitOps/CADDY_CLOUDFLARE_API_TOKEN/credential"
 # ---
 # name: sso

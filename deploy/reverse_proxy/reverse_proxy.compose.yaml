@@ -78,7 +78,7 @@ services:
         caddy_3.route.crowdsec:
         caddy_3.route.appsec:
         # Webhook endpoint for doco-cd, here because of the required secret lookup
-        caddy_4: https://gitops.$EXTERNAL_DOMAIN:44443
+        caddy_4: https://gitops.$SITE_EXTERNAL_DOMAIN:44443
         caddy_4.reverse_proxy: doco-cd:80 # can't use {{upstreams}} here
         
   crowdsec:
