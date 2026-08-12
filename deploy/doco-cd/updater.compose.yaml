@@ -7,7 +7,7 @@ services:
       HTTP_PORT: 8000
       GIT_ACCESS_TOKEN_FILE: /run/secrets/git_access_token
       POLL_CONFIG_FILE: /poll-config.yaml
-      SCHEDULER_ENABLED: false # disable scheduler on updater instance
+      SCHEDULER_ENABLED: 'false' # disable scheduler on updater instance
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /mnt/swarm-data/doco-cd/updater-data:/data
