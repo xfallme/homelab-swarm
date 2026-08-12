@@ -12,6 +12,8 @@ services:
           interval: 15m
           target: updater # deploys the updater target on change
       SCHEDULER_ENABLED: 'false' # disable scheduler on updater instance
+    secrets:
+      - git_access_token
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /mnt/swarm-data/doco-cd/updater-data:/data
