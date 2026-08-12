@@ -67,10 +67,10 @@ services:
         caddy_2.tls.dns: cloudflare $CLOUDFLARE_API_TOKEN
         caddy_2.tls.propagation_delay: 2m
         caddy_2.tls.resolvers: 1.1.1.1
-        caddy_2.@public.expression: "{http.request.port} == 44443"
-        caddy_2.route_0.@public:
-        caddy_2.route_0.@public.appsec:
-        caddy_2.route_0.@public.crowdsec:
+        # caddy_2.@public.expression: "{http.request.port} == 44443"
+        # caddy_2.route_0.@public:
+        # caddy_2.route_0.@public.appsec:
+        # caddy_2.route_0.@public.crowdsec:
         # Webhook endpoint for doco-cd, here because of the required secret lookup
         caddy_3: https://gitops-$SITE_EXTERNAL_DOMAIN:44443
         caddy_3.reverse_proxy: doco-cd:80 # can't use {{upstreams}} here
