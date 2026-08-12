@@ -101,11 +101,9 @@ services:
 
 networks:
   proxy_network:
-    name: proxy_network
-    driver: overlay
+    external: true
   external_proxy_network:
-    name: external_proxy_network
-    driver: overlay
+    external: true
   internal:
     driver: overlay
   internal_docker-proxy:

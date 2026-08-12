@@ -1,0 +1,30 @@
+- name: Bootstrap doco-cd to swarm
+  hosts: swarm01
+
+  tasks:
+    - name: Checkout GitOps repository
+      ansible.builtin.git:
+        repo: 'https://github.com/xfallme/homelab-swarm.git'
+        dest: /tmp/checkout
+
+    - name: Install Python packages for
+      ansible.builtin.apt:
+        name: python3-jsondiff
+        state: present
+      become: true
+
+    - name: Create required external networks
+      community.docker.docker_network:
+        name: "{{ item }}"
+        state: present
+        driver: overlay
+      loop:
+        - proxy_network
+        - external_proxy_network
+
+    - name: Deploy doco-cd-updater
+      community.docker.docker_stack:
+        state: present
+        name: doco-cd-updater
+        compose:
+          - /tmp/checkout/deploy/doco-cd/updater.compose.yaml
