@@ -42,9 +42,9 @@ services:
       CADDY_INGRESS_NETWORKS: proxy_network,external_proxy_network
     volumes:
       - socket-proxy.run:/var/run
-      - /mnt/swarm-data/caddy/data:/data
-      - /mnt/swarm-data/caddy/config:/config
-      - /mnt/swarm-data/caddy/logs:/var/log/caddy
+      - /mnt/swarm-data/reverse_proxy/data:/data
+      - /mnt/swarm-data/reverse_proxy/config:/config
+      - /mnt/swarm-data/reverse_proxy/logs:/var/log/caddy
     security_opt:
       - no-new-privileges=true
     deploy:
@@ -91,9 +91,9 @@ services:
       COLLECTIONS: crowdsecurity/caddy crowdsecurity/appsec-virtual-patching crowdsecurity/appsec-generic-rules crowdsecurity/http-cve crowdsecurity/whitelist-good-actors
     volumes:
       - ./crowdsec/acquis.yaml:/etc/crowdsec/acquis.yaml
-      - /mnt/swarm-data/caddy/logs:/var/log/caddy:ro
-      - /mnt/swarm-data/crowdsec/data:/var/lib/crowdsec/data/
-      - /mnt/swarm-data/crowdsec/config:/etc/crowdsec/
+      - /mnt/swarm-data/reverse_proxy/logs:/var/log/caddy:ro
+      - /mnt/swarm-data/reverse_proxy/crowdsec/data:/var/lib/crowdsec/data/
+      - /mnt/swarm-data/reverse_proxy/crowdsec/config:/etc/crowdsec/
     security_opt:
       - no-new-privileges=true
     deploy:
