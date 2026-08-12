@@ -9,7 +9,11 @@ services:
       LOG_LEVEL: debug
       TZ: Europe/Vienna
       GIT_ACCESS_TOKEN_FILE: /run/secrets/git_access_token
-      POLL_CONFIG_FILE: /poll-config.yaml # fallback polling configuration, in case webhooks are missed
+      # fallback polling configuration, in case webhooks are missed
+      POLL_CONFIG: |
+        - url: https://github.com/xfallme/homelab-swarm.git
+          reference: main
+          interval: 24h
       SECRET_PROVIDER: 1password
       SECRET_PROVIDER_ACCESS_TOKEN_FILE: /run/secrets/1password_service_account_token
       WEBHOOK_SECRET_FILE: /run/secrets/webhook_secret
@@ -20,9 +24,6 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /mnt/swarm-data/doco-cd/data:/data
-    configs: 
-      - source: poll-config.yaml
-        target: /poll-config.yaml
     healthcheck:
       test: [ "CMD", "/doco-cd", "healthcheck" ]
       start_period: 120s # higher because of 1password
@@ -45,10 +46,3 @@ secrets:
     external: true
   webhook_secret:
     external: true
-
-configs:
-  poll-config.yaml:
-    content: |
-      - url: https://github.com/xfallme/homelab-swarm.git
-        reference: main
-        interval: 24h
