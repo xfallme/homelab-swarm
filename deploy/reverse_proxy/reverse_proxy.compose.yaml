@@ -72,11 +72,11 @@ services:
         caddy_2.route_0.@public.appsec:
         caddy_2.route_0.@public.crowdsec:
         # Webhook endpoint for doco-cd, here because of the required secret lookup
-        caddy_4: https://gitops.$SITE_EXTERNAL_DOMAIN:44443
-        caddy_4.reverse_proxy: doco-cd:80 # can't use {{upstreams}} here
-        caddy_4.tls.dns: cloudflare $CLOUDFLARE_API_TOKEN
-        caddy_4.tls.propagation_delay: 2m
-        caddy_4.tls.resolvers: 1.1.1.1
+        caddy_3: https://gitops-$SITE_EXTERNAL_DOMAIN:44443
+        caddy_3.reverse_proxy: doco-cd:80 # can't use {{upstreams}} here
+        caddy_3.tls.dns: cloudflare $CLOUDFLARE_API_TOKEN
+        caddy_3.tls.propagation_delay: 2m
+        caddy_3.tls.resolvers: 1.1.1.1
         
   crowdsec:
     image: crowdsecurity/crowdsec:v1.7.8
