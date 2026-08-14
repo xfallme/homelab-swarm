@@ -33,21 +33,21 @@ external_secrets:
   EXTERNAL_DOMAIN: "op://GitOps/Data/external_domain"
   SITE_EXTERNAL_DOMAIN: "op://GitOps/Data/site_external_domain" # for now static
   CLOUDFLARE_API_TOKEN: "op://GitOps/CADDY_CLOUDFLARE_API_TOKEN/credential"
-# ---
-# name: sso
-# working_dir: /deploy/sso
-# compose_files:
-#   - sso.compose.yaml
-# reference: refs/heads/main
-# external_secrets:
-#   INTERNAL_DOMAIN: "op://GitOps/Data/internal_domain"
-#   EXTERNAL_DOMAIN: "op://GitOps/Data/external_domain"
-#   POCKET_ID_ENCRYPTION_KEY: "op://GitOps/POCKET_ID_ENCRYPTION_KEY/credential"
-#   POCKET_ID_MAXMIND_GEOLITE_LICENSE_KEY: "op://GitOps/POCKET_ID_MAXMIND_GEOLITE_LICENSE_KEY/credential"
-#   LLDAP_JWT_SECRET: "op://GitOps/LLDAP_JWT_SECRET/credential"
-#   LLDAP_KEY_SEED: "op://GitOps/LLDAP_KEY_SEED/credential"
-#   LLDAP_BASE_DN: "op://GitOps/Data/ldap_base_dn"
-#   POCKET_ID_LDAP_BIND_DN: "op://GitOps/POCKET_ID_LDAP/BIND_DN"
-#   POCKET_ID_LDAP_BIND_PASSWORD: "op://GitOps/POCKET_ID_LDAP/BIND_PASSWORD"
-#   SMTP_USER: "op://GitOps/SMTP/USER"
-#   SMTP_PASSWORD: "op://GitOps/SMTP/PASSWORD"
+---
+name: sso
+working_dir: /deploy/sso
+compose_files:
+  - sso.compose.yaml
+reference: refs/heads/main
+external_secrets:
+  INTERNAL_DOMAIN: "op://GitOps/Data/internal_domain"
+  EXTERNAL_DOMAIN: "op://GitOps/Data/external_domain"
+  POCKET_ID_ENCRYPTION_KEY: "op://GitOps/POCKET_ID_ENCRYPTION_KEY/credential"
+  POCKET_ID_MAXMIND_GEOLITE_LICENSE_KEY: "op://GitOps/POCKET_ID_MAXMIND_GEOLITE_LICENSE_KEY/credential"
+  LLDAP_JWT_SECRET: "op://GitOps/LLDAP_JWT_SECRET/credential"
+  LLDAP_KEY_SEED: "op://GitOps/LLDAP_KEY_SEED/credential"
+  LLDAP_BASE_DN: "op://GitOps/Data/ldap_base_dn"
+  POCKET_ID_LDAP_BIND_DN: "op://GitOps/POCKET_ID_LDAP/BIND_DN"
+  POCKET_ID_LDAP_BIND_PASSWORD: "op://GitOps/POCKET_ID_LDAP/BIND_PASSWORD"
+  SMTP_USER: "op://GitOps/SMTP/USER"
+  SMTP_PASSWORD: "op://GitOps/SMTP/PASSWORD"
