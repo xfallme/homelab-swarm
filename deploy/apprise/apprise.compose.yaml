@@ -15,7 +15,7 @@ services:
       APPRISE_STATEFUL_MODE: disabled
       APPRISE_WORKER_COUNT: 1
       APPRISE_API_ONLY: yes
-    mounts:
+    volumes:
       - /var/lib/swarm/apprise/tmp:/tmp
     deploy:
       mode: global
