@@ -53,6 +53,7 @@ services:
         constraints: [node.role == manager]
       labels:
         caddy.email: $EMAIL
+        caddy.@public.expression: "{http.request.local.port} == 44443"
         caddy.crowdsec.api_url: http://crowdsec:8080
         caddy.crowdsec.api_key: $CROWDSEC_API_KEY
         caddy.crowdsec.appsec_url: http://crowdsec:7422
@@ -67,7 +68,6 @@ services:
         caddy_2.tls.dns: cloudflare $CLOUDFLARE_API_TOKEN
         caddy_2.tls.propagation_delay: 2m
         caddy_2.tls.resolvers: 1.1.1.1
-        caddy_2.@public.expression: "{http.request.local.port} == 44443"
         caddy_2.route_0.@public:
         caddy_2.route_0.@public.appsec:
         caddy_2.route_0.@public.crowdsec:
