@@ -22,7 +22,7 @@ services:
       ACCENT_COLOR: "#379092"
       # SMTP
       # LDAP
-      LDAP_ENABLED: "false"
+      LDAP_ENABLED: "true"
       LDAP_URL: ldap://lldap:3890
       LDAP_BIND_DN: $POCKET_ID_LDAP_BIND_DN
       LDAP_BIND_PASSWORD: $POCKET_ID_LDAP_BIND_PASSWORD
