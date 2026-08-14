@@ -25,6 +25,7 @@ services:
       - git_access_token
       - 1password_service_account_token
       - webhook_secret
+      - apprise_notify_urls
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /mnt/swarm-data/doco-cd/data:/data
