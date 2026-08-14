@@ -53,7 +53,7 @@ services:
       replicas: 1
       labels:
         caddy_1: https://sso.$EXTERNAL_DOMAIN
-        caddy_1.reverse_proxy: "{{upstreams 1411}}"
+        caddy_1.reverse_proxy: "{{upstreams 141}}"
 
   lldap:
     image: lldap/lldap:v0.6.3-alpine-rootless
