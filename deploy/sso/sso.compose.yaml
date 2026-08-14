@@ -89,7 +89,5 @@ services:
 networks:
   proxy_network:
     external: true
-  external_proxy_network:
-    external: true
   internal:
     driver: overlay
