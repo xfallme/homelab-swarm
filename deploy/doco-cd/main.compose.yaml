@@ -42,6 +42,8 @@ services:
 networks:
   external_proxy_network:
     external: true
+  apprise_network:
+    external: true
 
 secrets:
   git_access_token:
