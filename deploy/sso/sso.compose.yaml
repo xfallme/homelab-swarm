@@ -52,7 +52,7 @@ services:
     deploy:
       replicas: 1
       labels:
-        caddy_1: sso.$EXTERNAL_DOMAIN
+        caddy_1: https://sso.$EXTERNAL_DOMAIN
         caddy_1.reverse_proxy: "{{upstreams 1411}}"
 
   lldap:
@@ -83,7 +83,7 @@ services:
     deploy:
       replicas: 1
       labels:
-        caddy_1: lldap.$EXTERNAL_DOMAIN
+        caddy_1: https://lldap.$EXTERNAL_DOMAIN
         caddy_1.reverse_proxy: "{{upstreams 17170}}"
 
 networks:
