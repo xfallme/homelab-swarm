@@ -50,3 +50,9 @@ external_secrets:
   POCKET_ID_LDAP_BIND_PASSWORD: "op://GitOps/POCKET_ID_LDAP/BIND_PASSWORD"
   SMTP_USER: "op://GitOps/SMTP/USER"
   SMTP_PASSWORD: "op://GitOps/SMTP/PASSWORD"
+---
+name: homeassistant
+working_dir: /deploy/homeassistant
+compose_files:
+  - homeassistant.compose.yaml
+reference: refs/heads/main

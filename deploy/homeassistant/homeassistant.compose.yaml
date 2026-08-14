@@ -1,0 +1,23 @@
+services:
+  ha:
+    image: "ghcr.io/home-assistant/home-assistant:2026.8.2"
+    networks:
+      - proxy_network
+      - internal
+    user: 1000:1000
+    environment:
+      TZ: Europe/Vienna
+    volumes:
+      - /mnt/swarm-data/homeassistant/config:/config
+      - /etc/localtime:/etc/localtime:ro
+    deploy:
+      replicas: 1
+      labels:
+        caddy_1: https://ha.$EXTERNAL_DOMAIN
+        caddy_1.reverse_proxy: "{{upstreams 8123}}"
+
+networks:
+  proxy_network:
+    external: true
+  internal:
+    driver: overlay
