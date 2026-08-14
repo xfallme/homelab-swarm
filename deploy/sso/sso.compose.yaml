@@ -2,7 +2,7 @@ services:
   pocket-id:
     image: ghcr.io/pocket-id/pocket-id:v2.13.0-distroless
     networks:
-      - external_proxy_network
+      - proxy_network
       - internal
     read_only: true
     user: 1000:1000
