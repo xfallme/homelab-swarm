@@ -5,6 +5,7 @@ services:
     hostname: doco-cd
     networks:
       - external_proxy_network
+      - apprise_network
     environment:
       LOG_LEVEL: debug
       TZ: Europe/Vienna
@@ -17,6 +18,9 @@ services:
       SECRET_PROVIDER: 1password
       SECRET_PROVIDER_ACCESS_TOKEN_FILE: /run/secrets/1password_service_account_token
       WEBHOOK_SECRET_FILE: /run/secrets/webhook_secret
+      APPRISE_API_URL: http://apprise:8000/notify
+      APPRISE_NOTIFY_LEVEL: success
+      APPRISE_NOTIFY_URLS_FILE: /run/secrets/apprise_notify_urls
     secrets:
       - git_access_token
       - 1password_service_account_token
@@ -45,4 +49,6 @@ secrets:
   1password_service_account_token:
     external: true
   webhook_secret:
+    external: true
+  apprise_notify_urls:
     external: true

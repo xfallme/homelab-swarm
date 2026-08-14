@@ -1,0 +1,25 @@
+services:
+  apprise:
+    image: caronc/apprise:v1.5.1
+    container_name: apprise
+    user: "1000:1000"
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - apprise_network
+    environment:
+      TZ: Europe/Vienna
+      APPRISE_STATEFUL_MODE: disabled
+      APPRISE_WORKER_COUNT: 1
+      APPRISE_API_ONLY: true
+    tmpfs:
+      - /tmp
+    deploy:
+      mode: global
+
+networks:
+  apprise_network:
+    external: true

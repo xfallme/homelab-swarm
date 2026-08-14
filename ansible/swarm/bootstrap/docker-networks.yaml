@@ -1,0 +1,13 @@
+- name: Create required external networks
+  hosts: swarm01
+
+  tasks:    
+    - name: Create required external networks
+      community.docker.docker_network:
+        name: "{{ item }}"
+        state: present
+        driver: overlay
+      loop:
+        - proxy_network
+        - external_proxy_network
+        - apprise_network
