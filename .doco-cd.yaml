@@ -56,3 +56,5 @@ working_dir: /deploy/homeassistant
 compose_files:
   - homeassistant.compose.yaml
 reference: refs/heads/main
+external_secrets:
+  EXTERNAL_DOMAIN: "op://GitOps/Data/external_domain"
