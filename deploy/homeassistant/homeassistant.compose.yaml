@@ -4,6 +4,8 @@ services:
     networks:
       - proxy_network
       - internal
+    ports:
+      - "8123:8123"
     user: 1000:1000
     environment:
       TZ: Europe/Vienna
