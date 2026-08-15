@@ -1,7 +1,7 @@
 services:
   app:
     container_name: doco-cd-updater
-    image: ghcr.io/kimdre/doco-cd:0.108.0
+    image: ghcr.io/kimdre/doco-cd:0.109.2
     environment:
       TZ: Europe/Vienna
       HTTP_PORT: 8000
