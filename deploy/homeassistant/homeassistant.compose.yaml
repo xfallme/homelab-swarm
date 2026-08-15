@@ -1,5 +1,5 @@
 services:
-  ha:
+  core:
     image: "ghcr.io/home-assistant/home-assistant:2026.8.2"
     networks:
       - proxy_network
