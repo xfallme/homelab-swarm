@@ -1,6 +1,6 @@
 services:
   pocket-id:
-    image: ghcr.io/pocket-id/pocket-id:v2.13.0-distroless
+    image: ghcr.io/pocket-id/pocket-id:v2.14.0-distroless
     networks:
       - proxy_network
       - internal
