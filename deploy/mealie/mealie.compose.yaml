@@ -1,0 +1,27 @@
+services:
+  mealie:
+    image: ghcr.io/mealie-recipes/mealie:v3.23.1
+    networks:
+      - proxy_network
+    user: 1000:1000
+    environment:
+      ALLOW_SIGNUP: "false"
+      ALLOW_PASSWORD_LOGIN: "false"
+      PUID: 1000
+      PGID: 1000
+      TZ: Europe/Vienna
+      BASE_URL: https://mealie.${EXTERNAL_DOMAIN}
+      OIDC_AUTH_ENABLED: "true"
+      OIDC_CONFIGURATION_URL: https://sso.${EXTERNAL_DOMAIN}/.well-known/openid-configuration
+      OIDC_CLIENT_ID: $MEALIE_OAUTH_PROVIDER_CLIENTID
+      OIDC_CLIENT_SECRET: $MEALIE_OAUTH_PROVIDER_CLIENTSECRET
+      OIDC_ADMIN_GROUP: mealie-admin
+      OIDC_PROVIDER_NAME: Pocket ID
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          memory: 1000M
+      labels:
+        caddy_1: https://mealie.${EXTERNAL_DOMAIN}
+        caddy_1.reverse_proxy: "{{upstreams 9000}}"
