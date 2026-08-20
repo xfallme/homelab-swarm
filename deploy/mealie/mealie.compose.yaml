@@ -15,7 +15,7 @@ services:
       OIDC_CONFIGURATION_URL: https://sso.${EXTERNAL_DOMAIN}/.well-known/openid-configuration
       OIDC_CLIENT_ID: $MEALIE_OAUTH_PROVIDER_CLIENTID
       OIDC_CLIENT_SECRET: $MEALIE_OAUTH_PROVIDER_CLIENTSECRET
-      OIDC_ADMIN_GROUP: mealie-admin
+      OIDC_ADMIN_GROUP: mealie_admin
       OIDC_PROVIDER_NAME: Pocket ID
     volumes:
       - /mnt/swarm-data/mealie/data:/app/data
