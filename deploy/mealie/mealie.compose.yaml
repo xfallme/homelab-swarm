@@ -17,6 +17,8 @@ services:
       OIDC_CLIENT_SECRET: $MEALIE_OAUTH_PROVIDER_CLIENTSECRET
       OIDC_ADMIN_GROUP: mealie-admin
       OIDC_PROVIDER_NAME: Pocket ID
+    volumes:
+      - /mnt/swarm-data/mealie/data:/app/data
     deploy:
       replicas: 1
       resources:
