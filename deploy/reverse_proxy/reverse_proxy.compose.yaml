@@ -74,7 +74,12 @@ services:
         # Webhook endpoint for doco-cd, here because of the required secret lookup
         caddy_3: https://gitops-$SITE_EXTERNAL_DOMAIN:44443
         caddy_3.reverse_proxy: doco-cd:80 # can't use {{upstreams}} here
-        
+        # Tinyauth forwarder for forward auth to services that don't support OIDC natively
+        caddy_4: (tinyauth_forwarder)
+        caddy_4.forward_auth: tinyauth:3000
+        caddy_4.forward_auth.uri: /api/auth/caddy
+        caddy_4.forward_auth.copy_headers: Remote-User Remote-Name Remote-Email Remote-Groups
+
   crowdsec:
     image: crowdsecurity/crowdsec:v1.7.8
     hostname: crowdsec
