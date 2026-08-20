@@ -31,6 +31,7 @@ services:
       labels:
         caddy_1: z2m.$EXTERNAL_DOMAIN
         caddy_1.reverse_proxy: "{{upstreams 8080}}"
+        caddy_1.import: tinyauth_forwarder *
 
   mosquitto:
     image: "eclipse-mosquitto:2.1.2-alpine"
