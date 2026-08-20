@@ -25,3 +25,7 @@ services:
       labels:
         caddy_1: https://mealie.${EXTERNAL_DOMAIN}
         caddy_1.reverse_proxy: "{{upstreams 9000}}"
+
+networks:
+  proxy_network:
+    external: true
