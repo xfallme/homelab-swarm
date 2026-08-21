@@ -5,8 +5,8 @@ services:
       - dozzle
     environment:
       DOZZLE_MODE: swarm
-      DOZZLE_ENABLE_ACTIONS: false
-      DOZZLE_ENABLE_SHELL: false
+      DOZZLE_ENABLE_ACTIONS: "false"
+      DOZZLE_ENABLE_SHELL: "false"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /opt/swarm-data/dozzle/data:/data
