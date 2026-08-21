@@ -2,6 +2,7 @@ services:
   dozzle:
     image: amir20/dozzle:v10.7.3-alpine
     networks:
+      - proxy_network
       - dozzle
     environment:
       DOZZLE_MODE: swarm
@@ -26,5 +27,7 @@ services:
         caddy_1.import: tinyauth_forwarder *
 
 networks:
+  proxy_network:
+    external: true
   dozzle:
     driver: overlay
