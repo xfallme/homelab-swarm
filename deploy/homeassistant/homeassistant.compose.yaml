@@ -1,6 +1,6 @@
 services:
   core:
-    image: "ghcr.io/home-assistant/home-assistant:2026.8.2"
+    image: ghcr.io/home-assistant/home-assistant:2026.8.2
     networks:
       - proxy_network
       - internal
@@ -13,11 +13,11 @@ services:
     deploy:
       replicas: 1
       labels:
-        caddy_1: https://ha.$EXTERNAL_DOMAIN
-        caddy_1.reverse_proxy: "{{upstreams 8123}}"
+        caddy: https://ha.$EXTERNAL_DOMAIN
+        caddy.reverse_proxy: "{{upstreams 8123}}"
 
   z2m:
-    image: "ghcr.io/koenkk/zigbee2mqtt:2.13.0"
+    image: ghcr.io/koenkk/zigbee2mqtt:2.13.0
     networks:
       - proxy_network
       - internal
@@ -29,12 +29,12 @@ services:
     deploy:
       replicas: 1
       labels:
-        caddy_1: z2m.$EXTERNAL_DOMAIN
-        caddy_1.reverse_proxy: "{{upstreams 8080}}"
-        caddy_1.import: tinyauth_forwarder *
+        caddy: z2m.$EXTERNAL_DOMAIN
+        caddy.reverse_proxy: "{{upstreams 8080}}"
+        caddy.import: tinyauth_forwarder *
 
   mosquitto:
-    image: "eclipse-mosquitto:2.1.2-alpine"
+    image: eclipse-mosquitto:2.1.2-alpine
     networks:
       - internal
     user: 1000:1000

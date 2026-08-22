@@ -16,7 +16,7 @@ services:
       APPRISE_WORKER_COUNT: 1
       APPRISE_API_ONLY: yes
     volumes:
-      - /var/lib/swarm/apprise/tmp:/tmp
+      - /opt/swarm-data/apprise/tmp:/tmp
     deploy:
       mode: global
 

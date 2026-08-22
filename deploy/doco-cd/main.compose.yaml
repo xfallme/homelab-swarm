@@ -1,4 +1,3 @@
-# backup polling configuration every 12 hours, incase webhooks are missed
 services:
   app:
     image: ghcr.io/kimdre/doco-cd:0.109.2

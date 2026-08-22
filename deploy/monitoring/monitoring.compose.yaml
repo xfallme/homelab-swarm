@@ -21,10 +21,10 @@ services:
     deploy:
       mode: global
       labels:
-        caddy_1: https://dozzle.$EXTERNAL_DOMAIN
-        caddy_1.reverse_proxy: "{{upstreams 8080}}"
-        caddy_1.reverse_proxy.flush_interval: -1
-        caddy_1.import: tinyauth_forwarder *
+        caddy: https://dozzle.$EXTERNAL_DOMAIN
+        caddy.reverse_proxy: "{{upstreams 8080}}"
+        caddy.reverse_proxy.flush_interval: -1
+        caddy.import: tinyauth_forwarder *
 
 networks:
   proxy_network:
