@@ -32,8 +32,6 @@ services:
         caddy: z2m.$EXTERNAL_DOMAIN
         caddy.reverse_proxy: "{{upstreams 8080}}"
         caddy.import: tinyauth_forwarder *
-        tinyauth.apps.z2m.config.domain: z2m.$EXTERNAL_DOMAIN
-        tinyauth.apps.z2m.oauth.groups: z2m_admin
 
   mosquitto:
     image: eclipse-mosquitto:2.1.2-alpine

@@ -108,6 +108,11 @@ services:
       labels:
         caddy: https://tinyauth.$EXTERNAL_DOMAIN
         caddy.reverse_proxy: "{{upstreams 3000}}"
+        # forward auth group restrictions for services that don't support OIDC natively
+        tinyauth.apps.z2m.config.domain: z2m.$EXTERNAL_DOMAIN
+        tinyauth.apps.z2m.oauth.groups: z2m_admin
+        tinyauth.apps.dozzle.config.domain: dozzle.$EXTERNAL_DOMAIN
+        tinyauth.apps.dozzle.oauth.groups: swarm_admin
 
 networks:
   proxy_network:
