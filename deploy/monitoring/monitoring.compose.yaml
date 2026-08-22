@@ -25,6 +25,8 @@ services:
         caddy.reverse_proxy: "{{upstreams 8080}}"
         caddy.reverse_proxy.flush_interval: -1
         caddy.import: tinyauth_forwarder *
+        tinyauth.apps.dozzle.config.domain: dozzle.$EXTERNAL_DOMAIN
+        tinyauth.apps.dozzle.oauth.groups: swarm_admin
 
 networks:
   proxy_network:
