@@ -6,7 +6,6 @@ services:
       - external_proxy_network
       - apprise_network
     environment:
-      LOG_LEVEL: debug
       TZ: Europe/Vienna
       GIT_ACCESS_TOKEN_FILE: /run/secrets/git_access_token
       # fallback polling configuration, in case webhooks are missed
