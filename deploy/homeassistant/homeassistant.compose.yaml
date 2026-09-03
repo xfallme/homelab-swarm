@@ -17,7 +17,7 @@ services:
         caddy.reverse_proxy: "{{upstreams 8123}}"
 
   z2m:
-    image: ghcr.io/koenkk/zigbee2mqtt:2.14.0
+    image: ghcr.io/koenkk/zigbee2mqtt:2.13.0
     networks:
       - proxy_network
       - internal
