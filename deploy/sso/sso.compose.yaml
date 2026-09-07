@@ -87,7 +87,7 @@ services:
         caddy.reverse_proxy: "{{upstreams 17170}}"
 
   tinyauth:
-    image: ghcr.io/tinyauthapp/tinyauth:v5.1.3-distroless
+    image: ghcr.io/tinyauthapp/tinyauth:v5.2.0-distroless
     hostname: tinyauth
     networks:
       - proxy_network
