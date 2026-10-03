@@ -81,7 +81,7 @@ services:
         caddy_4.forward_auth.copy_headers: Remote-User Remote-Name Remote-Email Remote-Groups
 
   crowdsec:
-    image: crowdsecurity/crowdsec:v1.8.0
+    image: crowdsecurity/crowdsec:v1.8.1
     hostname: crowdsec
     networks:
       - internal
