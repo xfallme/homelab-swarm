@@ -1,6 +1,6 @@
 services:
   dozzle:
-    image: amir20/dozzle:v11.1.3-alpine
+    image: amir20/dozzle:v11.3.0-alpine
     networks:
       - proxy_network
       - dozzle
