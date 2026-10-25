@@ -1,6 +1,6 @@
 services:
   app:
-    image: ghcr.io/kimdre/doco-cd:0.123.0
+    image: ghcr.io/kimdre/doco-cd:0.130.0
     hostname: doco-cd
     networks:
       - external_proxy_network
@@ -8,6 +8,8 @@ services:
     environment:
       TZ: Europe/Vienna
       GIT_ACCESS_TOKEN_FILE: /run/secrets/git_access_token
+      GIT_AUTH_DOMAINS: |
+        - domains: [github.com]
       # fallback polling configuration, in case webhooks are missed
       POLL_CONFIG: |
         - url: https://github.com/xfallme/homelab-swarm.git
@@ -28,11 +30,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /mnt/swarm-data/doco-cd/data:/data
     healthcheck:
-      test: [ "CMD", "/doco-cd", "healthcheck" ]
+      test: [ "CMD", "/healthcheck" ]
       start_period: 120s # higher because of 1password
-      interval: 30s
-      timeout: 5s
-      retries: 3
     deploy:
       resources:
         limits:
