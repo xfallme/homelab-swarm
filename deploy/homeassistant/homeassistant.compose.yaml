@@ -34,7 +34,7 @@ services:
         caddy.import: tinyauth_forwarder *
 
   mosquitto:
-    image: eclipse-mosquitto:2.1.2-alpine
+    image: eclipse-mosquitto:2.1.4-alpine
     networks:
       - internal
     user: 1000:1000
